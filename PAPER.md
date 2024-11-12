@@ -109,7 +109,7 @@ python voronoi_plot.py -i data/spokenwoz/trajectories.single_domain.json \
                        -o "output/plots/voronoi/d2f_joint" \
                        -d hospital
 ```
-The output are interactive visualizations saved HTML files, one of each speaker in the provided output path as `output/plots/voronoi/d2f_joint/DOMAIN/voronoi_SPEAKER.html`, for instance, for the above example, the file `output/plots/voronoi/d2f_joint/hospital/voronoi_user.html` contains the plot for the user utterances of the selected `hospital` domain, which should look like this one:
+The output are interactive visualizations saved HTML files, one of each speaker in the provided output path as `output/plots/voronoi/d2f_joint/DOMAIN/voronoi_SPEAKER.html`, for instance, for the above example, the file `output/plots/voronoi/d2f_joint/hospital/voronoi_user.html` (online version [here](http://tworld.io/extra/dialog2flow_example/voronoi_user_dialog2flow-joint-bert-base.html)) contains the plot for the user utterances of the selected `hospital` domain, which should look like this one:
 
 ![](misc/plot_voronoi_d2f.png)
 
@@ -120,7 +120,7 @@ python voronoi_plot.py -i data/spokenwoz/trajectories.single_domain.json \
                        -o "output/plots/voronoi/openai" \
                        -d hospital
 ```
-and look for the same file inside the new output folder, `output/plots/voronoi/openai/hospital/voronoi_user.html`, which should look like this one:
+and look for the same file inside the new output folder, `output/plots/voronoi/openai/hospital/voronoi_user.html` (online version [here](http://tworld.io/extra/dialog2flow_example/voronoi_user_openai-text-embedding-3-large.html)), which should look like this one:
 
 ![](misc/plot_voronoi_openai.png)
 

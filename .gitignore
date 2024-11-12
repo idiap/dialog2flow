@@ -1,5 +1,8 @@
 models/
 output/
+outputs/
+wandb/
 __pycache__
 __cache__
 core
+.DS_Store

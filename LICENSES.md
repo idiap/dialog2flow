@@ -4,7 +4,7 @@
 |---------------------|--------------------------|----------------------|
 |networkx             | [NetworkX](https://github.com/networkx/networkx)| BSD-3-Clause license |
 |omegaconf            | [OmegaConf](https://github.com/omry/omegaconf)| BSD-3-Clause license |
-|scikit-learn         | [Scikit-learn](https://github.com/scikit-learn/scikit-learn)|  BSD-3-Clause license|
+|scikit-learn         | [Scikit-learn](https://github.com/scikit-learn/scikit-learn)| BSD-3-Clause license |
 |simpleneighbors      | [SimpleNeighbors](https://github.com/aparrish/simpleneighbors)| BSD-3-Clause license |
 |umap-learn           | [UMAP](https://github.com/lmcinnes/umap)| BSD-3-Clause license |
 |pandas               | [Pandas](https://github.com/pandas-dev/pandas)| BSD-3-Clause license |
@@ -27,4 +27,5 @@
 |openai               | [OpenAI Python API library](https://github.com/openai/openai-python)| Apache-2.0 license   |
 |tenacity             | [Tenacity](https://github.com/jd/tenacity)| Apache-2.0 license   |
 |nltk                 | [NLTK](https://github.com/nltk/nltk)| Apache-2.0 license   |
+|mxGraph              | [mxGraph](https://jgraph.github.io/mxgraph/) | Apache-2.0 license |
 |frozendict           | [Frozendict](https://github.com/Marco-Sulla/python-frozendict)| LGPL-3.0 license     |

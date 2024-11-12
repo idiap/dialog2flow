@@ -1,0 +1,6 @@
+name: dialog2flow
+dependencies:
+  - python=3.10
+  - pytorch::pytorch=2.2.0
+  - pytorch::pytorch-cuda=12.1
+  - nvidia::cuda=12.1

@@ -1,5 +1,14 @@
 # Training
 
+Before starting, if you haven't done it yet, make sure your environment and dependencies are all set up:
+```bash
+# creates the corresponding "dialog2flow" conda environment
+conda env create -f conda.yml
+conda activate dialog2flow
+pip install -r requirements.txt
+```
+_(:point_right: in case your having issues during installation, we also have exported the full conda environment and requirements ([`conda-exported.yml`](conda-exported.yml)) and ([`requirements-exported.txt`](requirements-exported.txt)) for you to use the exact same environemt used the last time we tested the code)_
+
 1. Training data: Data is located in `data` folder. You need to download the 3 missing files for training data (`dialog-acts+slots.csv`, `dialog-acts.csv`, `slots.csv`) as follows:
     ```bash
     cd data/
@@ -57,7 +66,7 @@
             evaluation.evaluations_per_epoch=100 \
             evaluation.best_model_output_path="models/d2f_single/" \
             wandb.project_name="d2f_single" \
-            checkpointing.path="d2f_single/checkpoints" \
+            checkpointing.path="models/d2f_single/checkpoints" \
             checkpointing.always_save_after_each_epoch=False \
             checkpointing.saves_per_epoch=0
         ```
@@ -105,7 +114,7 @@
             evaluation.evaluations_per_epoch=100 \
             evaluation.best_model_output_path="models/d2f-hard_single/" \
             wandb.project_name="d2f-hard_single" \
-            checkpointing.path="d2f-hard_single/checkpoints" \
+            checkpointing.path="models/d2f-hard_single/checkpoints" \
             checkpointing.always_save_after_each_epoch=False \
             checkpointing.saves_per_epoch=0
         ```
@@ -113,8 +122,8 @@ Models checkpoints will be saved in `models`, inside their own folders with the 
 ```
 - models/
   |- d2f_joint/
+  |   +- best_model_metric_0/ (best overall checkpoint in this folder)
   |   +- checkpoints/ (all checkpoints in this folder)
-  |   |- (best overall checkpoint on eval set here, root directory)
   +- d2f_single/
   +- d2f-hard_joint/
   +- d2f-hard_single/
@@ -169,6 +178,11 @@ By default converted datasets will be saved in `tod_datasets/`, in case a differ
 | Taskmaster2        | 17304  | -          | -     | 17304  | Creative Commons Attribution 4.0 License (CC BY 4.0)        |
 | Taskmaster3        | 22724  | 17019      | 17903 | 57646  | Creative Commons Attribution 4.0 License (CC BY 4.0)        |
 | WOZ2_0             | 600    | 200        | 400   | 1200   | Apache License 2.0                                          |
+
+
+## Proposed Soft-Contrastive Loss
+
+Details about loss implementation can be found in the [main `README.md`](../#proposed-soft-contrastive-loss).
 
 ## License
 

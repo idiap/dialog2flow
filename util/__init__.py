@@ -15,7 +15,6 @@ import torch.nn as nn
 
 from joblib import Memory
 from openai import OpenAI
-from datetime import datetime
 from tqdm.autonotebook import trange
 from sentence_transformers import util
 from sentence_transformers.util import batch_to_device
@@ -137,7 +136,6 @@ def compute_anisotropy(embs):
 
 
 def get_print_column_value(row, column, percentage=False, extra_value=None):
-    rank = row[f"{column}_rank"]
     value = row[column]
     if percentage:
         value = f"{value:.2%}"

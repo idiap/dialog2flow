@@ -6,6 +6,10 @@ model:
   special_tokens: []  # e.g. ["[USR]", "[SYS]"]
   max_seq_length: 128  # if null, then min(auto_model.config.max_position_embeddings, tokenizer.model_max_length)
 
+target:
+  losses: null
+  trainsets: null
+
 contrastive_learning:
   label_pos: null
   label_neg: null

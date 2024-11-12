@@ -20,18 +20,84 @@ logger = logging.getLogger(__name__)
 
 
 class LabeledContrastiveLoss(BaseContrastiveLoss):
-    """
-
-    """
     def __init__(self, model: SentenceTransformer,
                  use_soft_labels: bool = False, temperature: float = .05,
-                 soft_label_temperature: float = .25, soft_label_model: str = "all-mpnet-base-v2",
-                 is_symmetrical: bool = False,
+                 soft_label_temperature: float = .35, soft_label_model: str = "multi-qa-mpnet-base-dot-v1",
+                 is_symmetrical: bool = True,
                  accelerator: Accelerator = None,
-                 use_contrastive_head: bool = False, use_abs: bool = False):
+                 use_contrastive_head: bool = True, use_abs: bool = False):
         """
-        :param model: SentenceTransformer model
-        :param accelerator: Optional Accelerator object to be used in `forward()` to gather batches across GPUs
+        Soft and Vanilla Supervised Contrastive loss as described in https://arxiv.org/abs/2410.18481.
+        Expects as input two texts and a label. In case of soft contrastive loss this label must be its index
+        as used in the label to index mapping in `compute_label_embeddings()`.
+        This is to avoid computing the label embeddings every time the loss is called.
+        ).
+        Then, this loss reduces the distance for all sentences embeddings in the batch having the same label (index),
+        while increasing the distance among embeddings with different label.
+
+        Args:
+            model: SentenceTransformer model
+            use_soft_labels: Wheather to use soft semantic labels or not (i.e. soft-contrastive loss)
+            soft_label_temperature: Temperature parameter to scale the cosine similarities for the soft labels.
+            soft_label_model: SentenceTransformer model to use to get the embeddings of the labels.
+            temperature: Contrastive loss temperature parameter.
+            is_symmetrical: Wheather to consider the loss as symmetrical between anchor and target sentences.
+            accelerator: Optional Accelerator object to be used in `forward()` to gather batches across GPUs
+            use_contrastive_head: Wheather to use the contrastive head or not.
+            use_abs: Wheather to use the absolute value of the cosine similarity or not.
+
+        References:
+            * Paper: https://arxiv.org/abs/2410.18481
+
+        Inputs:
+            +-----------------------------------------------+------------------------------+
+            | Texts                                         | Labels                       |
+            +===============================================+==============================+
+            | (anchor, positive/negative) pairs             | integer (label index)        |
+            +-----------------------------------------------+------------------------------+
+
+        Example:
+            ::
+
+                from sentence_transformers import SentenceTransformer
+                from torch.utils.data import DataLoader
+
+                from spretrainer.datasets import SimilarityDatasetFromLabels
+                from spretrainer.losses import LabeledContrastiveLoss
+
+
+                # Our model
+                my_model = SentenceTransformer(...)
+
+                # Our supervised soft-contrastive loss
+                loss_model = LabeledContrastiveLoss(model=my_model,
+                                                    use_soft_labels=True)
+
+                # Our input data
+                data = [["utterance-0", "label-0"],
+                        ["utterance-1", "label-1"],
+                        ...
+                        ["utterance-n", "label-n"]]  # (utterance, label) paris
+                # Convert data to a Dataset object with InputExample()s as SentenceTransformer
+                dataset = SimilarityDatasetFromLabels(data,
+                                                    labels_as_ix=True,
+                                                    shuffle=True)
+
+                # We need to pre-computing label embedings for the soft-contrative loss
+                loss_model.compute_label_embeddings(dataset)
+
+
+                data_iterator = DataLoader(dataset, ...)
+
+                for _ in range(n_epochs):
+                    loss_model.zero_grad()
+                    loss_model.train()
+                    for data in data_iterator:
+
+                        tokenized_batch, labels = data
+                        loss_value = loss_model(tokenized_batch, labels)
+                        loss_value.backward()
+                        optimizer.step()
         """
         super(LabeledContrastiveLoss, self).__init__(model=model,
                                                      use_contrastive_head=use_contrastive_head)
