@@ -9,9 +9,9 @@
 > - :microscope: **Experimentation:** To replicate the experiments and plots from our paper, see the ["Paper replication"](#paper-replication) section.
 > - :snowboarder: **Training:** For details on training the models from scratch, go to the [`train/`](train/) folder.
 
-| :movie_camera:[video](https://youtu.be/kruoRujn49M) | :bar_chart:[slides](https://docs.google.com/presentation/d/1uoqAXasTpoQ6U1-OiAtTxFDfF2wnZdXyzSS8DEnQBt4/edit?usp=sharing) | :scroll:[poster](misc/Dialog2Flow_EMNLP_poster_a0.pdf) |
 
 ## :book: Table of Contents
+| :movie_camera:[video](https://youtu.be/kruoRujn49M) | :bar_chart:[slides](https://docs.google.com/presentation/d/1uoqAXasTpoQ6U1-OiAtTxFDfF2wnZdXyzSS8DEnQBt4/edit?usp=sharing) | :scroll:[poster](misc/Dialog2Flow_EMNLP_poster_a0.pdf) |
 
 - [How Does It Work?](#how-does-it-work)
 - [Paper Replication!](#paper-replication)
