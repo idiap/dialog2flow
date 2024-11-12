@@ -2,7 +2,7 @@
 # :speech_balloon: **Dialog2Flow**: Convert Your Dialogs to Flows!
 [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg)](https://huggingface.co/collections/sergioburdisso/dialog2flow-67162ca33155cb90a533b7fa)[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/sergioburdisso/dialog2flow-dataset) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![arXiv](https://img.shields.io/badge/arXiv-2410.18481-b31b1b.svg)](https://arxiv.org/abs/2410.18481)
 
-> This repository accompanies the paper ["Dialog2Flow: Pre-training Soft-Contrastive Sentence Embeddings for Automatic Dialog Flow Extraction"](https://arxiv.org/abs/2410.18481), accepted to the EMNLP 2024 main conference.  
+> This repository accompanies the paper ["Dialog2Flow: Pre-training Soft-Contrastive Sentence Embeddings for Automatic Dialog Flow Extraction"](https://aclanthology.org/2024.emnlp-main.310/), accepted to the EMNLP 2024 main conference.  
 > It contains code to replicate the experiments, train the models, and access released resources like the dataset:
 > - 🤗 **Models and Dataset:** available [on Hugging Face](https://huggingface.co/collections/sergioburdisso/dialog2flow-67162ca33155cb90a533b7fa).
 > - :chart_with_downwards_trend: **Proposed Loss:** implementation details described [here](#proposed-soft-contrastive-loss).
@@ -460,15 +460,20 @@ If you found the paper and/or this repository useful, please consider citing our
 
 ```bibtex
 @inproceedings{burdisso-etal-2024-dialog2flow,
-    title = "Dialog2Flow: Pre-training Soft-Contrastive Action-Driven Sentence Embeddings for Automatic Dialog Flow Extraction",
+    title = "{D}ialog2{F}low: Pre-training Soft-Contrastive Action-Driven Sentence Embeddings for Automatic Dialog Flow Extraction",
     author = "Burdisso, Sergio  and
       Madikeri, Srikanth  and
       Motlicek, Petr",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
     booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
     month = nov,
     year = "2024",
-    address = "Miami",
+    address = "Miami, Florida, USA",
     publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.emnlp-main.310",
+    pages = "5421--5440",
 }
 ```
 
