@@ -1,6 +1,6 @@
 
 # :speech_balloon: **Dialog2Flow**: Convert Your Dialogs to Flows!
-[:movie_camera:[video](https://youtu.be/kruoRujn49M)][:bar_chart:[slides](https://docs.google.com/presentation/d/1uoqAXasTpoQ6U1-OiAtTxFDfF2wnZdXyzSS8DEnQBt4/edit?usp=sharing)][:scroll:[poster](misc/Dialog2Flow_EMNLP_poster_a0.pdf)] [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/collections/sergioburdisso/dialog2flow-67162ca33155cb90a533b7fa)[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/sergioburdisso/dialog2flow-dataset)[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![arXiv](https://img.shields.io/badge/arXiv-2410.18481-b31b1b.svg)](https://arxiv.org/abs/2410.18481)
+[![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg)](https://huggingface.co/collections/sergioburdisso/dialog2flow-67162ca33155cb90a533b7fa)[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/sergioburdisso/dialog2flow-dataset) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![arXiv](https://img.shields.io/badge/arXiv-2410.18481-b31b1b.svg)](https://arxiv.org/abs/2410.18481)
 
 > This repository accompanies the paper ["Dialog2Flow: Pre-training Soft-Contrastive Sentence Embeddings for Automatic Dialog Flow Extraction"](https://arxiv.org/abs/2410.18481), accepted to the EMNLP 2024 main conference.  
 > It contains code to replicate the experiments, train the models, and access released resources like the dataset:
@@ -8,6 +8,8 @@
 > - :chart_with_downwards_trend: **Proposed Loss:** implementation details described [here](#proposed-soft-contrastive-loss).
 > - :microscope: **Experimentation:** To replicate the experiments and plots from our paper, see the ["Paper replication"](#paper-replication) section.
 > - :snowboarder: **Training:** For details on training the models from scratch, go to the [`train/`](train/) folder.
+
+| :movie_camera:[video](https://youtu.be/kruoRujn49M) | :bar_chart:[slides](https://docs.google.com/presentation/d/1uoqAXasTpoQ6U1-OiAtTxFDfF2wnZdXyzSS8DEnQBt4/edit?usp=sharing) | :scroll:[poster](misc/Dialog2Flow_EMNLP_poster_a0.pdf) |
 
 ## :book: Table of Contents
 
