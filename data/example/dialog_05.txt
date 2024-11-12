@@ -1,0 +1,40 @@
+System: Thank you for calling SilverCare Health Solutions. This is Emma. How can I help you today?
+User: Hi, Emma. I have a claim that was denied, specifically the materials portion, because it was marked as already paid. I’m hoping to verify how often the member is eligible for materials.
+System: Sure, I can definitely help with that. Would you like me to connect you with our coverage eligibility department to verify the benefits?
+User: Yes, that sounds perfect.
+System: Alright, can I have the member’s ID number for reference?
+User: Yes, it’s WJK 462722799.
+System: I see. That is an out-of-state policy. Would you still like me to transfer you to the coverage eligibility department?
+User: Yes, that’s where I need to be, I think.
+System: Great. Let me ask a few more questions before I transfer you. You mentioned a claim was denied. Are you checking benefits, or are you verifying the claim?
+User: The claim was denied, but I suspect it’s because the member may only be eligible for materials every two years instead of annually.
+System: I see. Let me look into the details of that claim for you.
+User: That would be really helpful.
+System: Am I speaking with Brittany today?
+User: Yes, you are!
+System: Great, Brittany. Are you calling on behalf of Dr. Johnson?
+User: Yes, that’s right.
+System: May I have the member’s ID and date of service?
+User: Sure, the ID is WJK 462722799. The member's name is Gina Smith, date of birth is May 29, 1991. The date of service is May 19, 2022, and the total bill is $500. The claim number is 7446843854.
+System: Thank you for that information. Let me look at the claim details for you.
+User: Thank you so much.
+System: You’re welcome. Just a moment, please. Okay, I see this claim is for eyeglasses.
+User: Yes, that’s correct.
+System: The claim is being denied as a duplicate. Let me dig a little deeper.
+User: That’s strange. I don’t see anything recent. The most recent eyeglasses claim I see is from May 25, 2020.
+System: Ah, that might be why. It looks like eyeglasses are covered every two years, so that could be the reason this claim was denied.
+User: Yeah, that sounds like the issue.
+System: The policy allows for coverage once every two years. Now, let me check the member’s home plan details. One moment.
+User: Sure.
+System: Okay, it looks like we received an informational message regarding this claim on September 29, 2021. It says that the procedure codes D9146, D9147, and D9148 are not eligible under the medical plan and should have been submitted by the member with a 415F claim form. These charges will be processed locally.
+User: That’s interesting. So the member needs to file these charges herself, right?
+System: Yes, based on the response from the home plan, the member would need to file the claim themselves using the 415F claim form.
+User: I see. So, the member should contact their home plan, fill out the form, and file it themselves.
+System: Exactly. The number to reach their member services department is located on the back of their insurance card.
+User: Okay, that’s very helpful. Could I please get a reference number for this call?
+System: Absolutely! The reference number for today’s inquiry is 020825066723.
+User: Great, thank you so much for your help today.
+System: It was my pleasure, Brittany. Thank you and a wonderful rest of your day!
+User: Same to you, Emma. Thanks again!
+System: Take care, goodbye!
+User: Goodbye!

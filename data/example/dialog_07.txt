@@ -1,0 +1,19 @@
+System: Thank you for calling SilverCare Health Solutions. My name is Chris. How may I assist you today?
+User: Hi, my name is Pat. I’m calling because my doctor wanted to do a procedure on Monday, and they called me today saying that my card is not active.
+System: I’d be happy to help verify your eligibility. May I have your full name, please?
+User: Patricia Travis, P-A-T-R-I-C-I-A, and my last name is Travis.
+System: Thank you, Patricia. May I have a phone number where you can be reached?
+User: 314-227-3996.
+System: And your SilverCare Health Solutions member ID number?
+User: It’s 302135926.
+System: Thank you. Can you please confirm your date of birth and the address on your policy?
+User: March 8th, 1977. The address is 112 Constitution Road, Savannah, Georgia 31401.
+System: Just a moment while I check your information... Okay, I see that your policy is active. It became effective on January 1st, 2022. So, I’m not sure why they’re saying your card isn’t valid because your coverage is active in our system.
+User: Huh? Okay.
+System: Sometimes doctors’ offices use a third-party verification system that may not be up to date. I recommend having them call SilverCare Health Solutions directly to verify your benefits. But rest assured, your insurance is active.
+User: Okay. All right. Thank you.
+System: You’re welcome! Is there anything else I can assist you with today?
+User: No, that’ll be it.
+System: All right. Thank you for calling. Have a great day!
+User: Thanks, you too.
+System: Goodbye!

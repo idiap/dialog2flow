@@ -1,0 +1,51 @@
+System: Good morning, and thank you for calling SilverCare Health Solutions. This is Chris. How may I assist you today?
+User: Thank you, Chris. I’m calling to check if my policy is active and to pay my bill, please.
+System: Sure! I’d be happy to assist you. May I have your member ID number?
+User: My member ID number is YT 345241468.
+System: And your name?
+User: Stephanie Livermore.
+System: May I call you Stephanie?
+User: Yes, sir.
+System: Thank you, Stephanie. Could you please provide your address and phone number?
+User: 255 Broadway Avenue, Savannah, Georgia 31401. My phone number is 312-346-2155.
+System: And your date of birth?
+User: April 17th, 1954.
+System: Thank you. I see you’ve made a payment on November 30th for your premium, so everything looks fine with your account.
+User: I’d like to pay it off for the year, though. Can you help me with that?
+System: Absolutely! To pay off your premium for the year, you’ll need to send a check or money order by mail.
+User: Can you tell me the amount I owe and where I can mail it?
+System: Yes, ma’am. I’m pulling up your balance now.
+User: You can’t do it over the phone? I’ve got myself set up on auto-draft, though. How will that work?
+System: You’ll need to cancel the auto-draft first. You’ll need to go into your account and delete that information. Then you can mail in your full payment for the year.
+User: I’m sorry, can you repeat that?
+System: Sure! You’ll need to go into your account and cancel the auto-draft. Once that’s done, you can mail in the full payment for the year.
+User: Okay, let me get something to write with.
+System: Of course. Take your time.
+User: Okay, I’m ready. I need to go online and cancel the auto-draft?
+System: Yes, if you registered your auto-draft online, you’ll need to go in and cancel it.
+User: I don’t remember which website I used. It’s been going on for over a year. Can you tell me where to go?
+System: I can help you with that. Do you have something to write with?
+User: Yes, I have it ready.
+System: Okay, you’ll go to the website www.fgi.org.
+User: I’m sorry, could you repeat that?
+System: Sure, it’s www.fgi.org.
+User: Okay.
+System: Once you’re there, log in and you’ll see the option to cancel the auto-draft. You just need to delete your payment information from your account.
+User: Okay, I can do that. Now, where do I mail my check?
+System: You’ll mail your check to PO Box 5256, Atlanta, Georgia 32341. Add Space 4211 after the zip code.
+User: So, it’s PO Box 5256, Atlanta, Georgia 32341, Space 4211?
+System: Yes, that’s correct. Also, please make sure to address it to the Membership and Billing Department.
+User: Membership and Billing, okay.
+System: Now, for your payment amount, your balance due is $1307.57.
+User: So, it’s $1307.57, correct?
+System: Yes, ma’am. $1307.57.
+User: Okay, I got it. What’s my monthly payment, by the way? Is it $118?
+System: Your monthly payment is $118.67.
+User: Okay, so I’ll delete the auto-draft, mail the check to Membership and Billing, and the amount is $1307.57.
+System: That’s right! Please make the check payable to SilverCare Health Solutions and include your member number in the memo.
+User: Got it. Thank you for all your help!
+System: You’re very welcome! Is there anything else I can assist you with today?
+User: No, sir. I appreciate it.
+System: It’s my pleasure. Have a great day, and enjoy your weekend!
+User: Thank you. You too!
+System: Goodbye!

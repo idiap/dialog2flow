@@ -1,0 +1,23 @@
+System: Good morning, thank you for calling SilverCare Health Solutions. This is Olivia. How can I assist you today?
+User: Hi, Olivia. I just got a bill for over $900, and I’m wondering why it’s so high.
+System: I can definitely help you with that. Let me pull up your account and review the details of the bill. May I have your full name, please?
+User: Sure, it's Grace Mitchell.
+System: Thank you, Miss Mitchell. And what’s a good phone number to reach you at today?
+User: It’s 314-246-4671.
+System: Thanks. And just to confirm, are you still living on Elm Street in Springfield?
+User: Yes, that’s correct.
+System: Okay, thank you. Now, just to clarify, the bill you received—was it from your provider, or is this your monthly premium invoice?
+User: It’s my monthly bill, not a doctor’s bill.
+System: Oh, I see! I misunderstood. Let me check your premium payment details. Give me a moment.
+User: Sure, take your time.
+System: Alright, I’m pulling up your coverage information now. I see that your premium has increased this year. It looks like last year your premium was $0, but this year it’s gone up to $579. Were you able to update your coverage during the open enrollment period?
+User: No, I thought it would just rollover from last year. I didn’t realize there was anything to update.
+System: I understand. Unfortunately, it did roll over, but the premium has increased due to changes in your coverage under the Federal Health Insurance Program. We’ll need to confirm with the Federal Office of Public Health to ensure everything is in order with your subsidy.
+User: So, you’re telling me I’ll be paying over $900 a month if I keep the same plan?
+System: Yes, Miss Mitchell. If you keep the same coverage, that will be the amount you’re responsible for. However, I can help you look into options to lower that premium. We can contact the Federal Office of Public Health this morning and review your subsidy to see if you qualify for assistance. There might also be alternative plans with a lower monthly premium that could better fit your needs.
+User: Wow, that’s a lot. Is that for the whole year?
+System: Yes, the premium is based on your annual coverage, but we can certainly explore other options. Last year, the government’s pandemic relief program provided additional support for premiums, but that ended in December, which is why you’re seeing the increase now. Let’s reach out and see if we can find you a plan with a more manageable premium.
+User: I really appreciate you helping me with this.
+System: You're very welcome! I’ll go ahead and place you on hold while I contact the Federal Office of Public Health. Let’s see what we can do to reduce your monthly bill.
+User: Thank you so much.
+System: My pleasure. Please hold for just a moment.

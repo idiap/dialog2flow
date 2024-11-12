@@ -1,0 +1,47 @@
+System: Thank you for calling SilverCare Health Solutions. This is Rachel. How can I assist you today?
+User: Hi Rachel, this is Kimberly calling from Cedar Grove Family Clinic. I need to verify some contraceptive benefits for one of our patients.
+System: Of course, Kimberly. Let me get a callback number from you first.
+User: Sure, it's 202-334-4569.
+System: Thank you. Can I get the provider's ID number and office address?
+User: Yes, the provider ID is 314-234-354, and the office address is 300 Main Street, Springfield, IL 62701. The provider is Dr. Monica Washington.
+System: Got it. And what’s the member’s ID number, name, and date of birth?
+User: The member is Georgia Michaels, and her date of birth is June 3rd, 1981.
+System: Thank you. Just a moment while I pull up the information for you.
+User: Sure, no problem.
+System: Thank you for holding. I have the details here. It looks like contraceptive benefits are available for this member under their wellness coverage. The good news is there’s no cost to the member for these services.
+User: That’s great! No authorization required?
+System: Let me double-check that for you. It looks like no authorization is needed unless the cost exceeds $5,000. I don't anticipate that being the case here, so you're good to go.
+User: So it’s $5,000 for authorization—okay, got it. And can the provider bill directly?
+System: Yes, the provider can submit a direct claim for payment.
+User: Okay, thanks. You said your name is Rachel, right?
+System: Yes, that's correct.
+User: Can I also get your last name and the reference number for this call? I have two more members to check on.
+System: Sure, my last name is Green. And the reference number for this inquiry is 4513-2020-00577.
+User: Got it. And for the other members, will the reference number be different?
+System: Yes, each member will have a unique reference number.
+User: Great, I’ll give you the details for the next member. The provider ID is 857-632-904.
+System: Thanks! What’s the provider’s name and address?
+User: Dr. Janet Manning, 800 Broadway Avenue, Springfield, IL 62702, provider ID 900-578-321.
+System: Got it. And the member’s ID, name, and date of birth?
+User: This one is Laurie Sanchez, born April 9th, 1987.
+System: Thank you. And what benefits are we verifying for Laurie?
+User: This is for the hormonal IUD, codes K6500 and 76800.
+System: And do you have the diagnosis code?
+User: Yes, it’s Z94.9.
+System: Let me check on that for you. One moment.
+User: Sure, thank you.
+System: Thanks for your patience, Kimberly. I’ve confirmed that the hormonal IUD is covered under the wellness benefit at no cost to the member, just like the first member. There’s also no authorization required unless the cost exceeds $5,000.
+User: Okay, that’s good to know. Can the provider bill directly for this one as well?
+System: Yes, they can.
+User: So, this $5,000 limit is new, right?
+System: Yes, this is a new policy change this year. It wasn't in place last year.
+User: I haven't seen that until now, either.
+System: I understand, Kimberly. Things have changed a bit with the new policy updates.
+User: Alright, I think I have everything I need for Laurie. What’s the reference number for this inquiry?
+System: The reference number for this one is 4513-2020-02572.
+User: Perfect, thank you so much for your help today!
+System: You’re welcome! Is there anything else I can assist you with?
+User: No, that’s everything. Thanks again!
+System: My pleasure. You have a wonderful day!
+User: You too! Bye-bye!
+System: Goodbye!

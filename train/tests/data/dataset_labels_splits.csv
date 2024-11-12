@@ -1,0 +1,8 @@
+sent1,sent2,value,split
+hello,world,positive,train
+hello,moon,negative,train
+apple,orange,positive,train
+apple,car,negative,train
+orange,truck,negative,test
+person,dog,positive,test
+jsalt,ai,positive,test

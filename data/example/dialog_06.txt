@@ -1,0 +1,34 @@
+System: Good morning, thank you for calling SilverCare Health Solutions. This is Olivia. How may I assist you today?
+User: Hi Olivia, my name is Emily. I'm calling from Dr. Jennifer Parker's office. We need to verify maternity benefits for a patient, please.
+System: Of course, I can help with that. I’ll need to ask you a few questions to pull up the policy. Is that okay?
+User: Sure, go ahead.
+System: Great! What’s a good callback number for you?
+User: My direct number is 415-987-6543.
+System: Thank you. Now, could I have the member ID number, please?
+User: It’s K-349185672.
+System: Thank you. And the member’s name and date of birth?
+User: The member’s name is Laura Bennett, and her date of birth is March 23, 1992.
+System: Got it. And the provider's name and address?
+User: The provider is Dr. Jennifer Parker, and the address is 456 Oak Avenue, Suite 100, Springfield, IL, 62704.
+System: Thank you. I’m pulling up the policy now.
+User: Great, thank you.
+System: It looks like Dr. Parker is in-network. Is Laura being seen today?
+User: No, her appointment is scheduled for Monday.
+System: Got it. I have her on a standard option self-only policy with an effective date of January 1, 2022. Please note that verification of benefits does not guarantee coverage or payment, and all services are subject to medical necessity, eligibility, and contract exclusions at the time services are rendered. For the first visit to establish the pregnancy, there will be a $10 copay.
+User: Okay, understood.
+System: The maternity benefits cover prenatal care, delivery, anesthesia, and any surgical assistance if required. The postpartum period, which generally lasts six weeks after delivery, includes hospital care, professional provider visits, and routine follow-up visits related to pregnancy or delivery. For preferred providers, there is no charge for up to four visits per year.
+User: Okay, perfect. And what about the global maternity charge and the physician's delivery fee? Are they subject to a deductible?
+System: Let me double-check. No, ma’am. They are not subject to a deductible.
+User: Great! So, just the $10 copay for the first visit?
+System: Yes, ma’am.
+User: Awesome. And what’s your name again?
+System: Olivia.
+User: Thanks, Olivia. And do you follow the 48-hour rule for hospital stays after delivery?
+System: Yes, ma’am, we do.
+User: Perfect. And lastly, could I get a reference number for this inquiry?
+System: Absolutely. Your reference number is 061322000307.
+User: Thank you so much, Olivia. You’ve been a great help!
+System: You’re welcome, Emily. I’m glad I could assist you. Have a wonderful weekend!
+User: You too! Thanks again.
+System: Take care! Goodbye!
+User: Bye!

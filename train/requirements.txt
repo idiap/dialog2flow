@@ -1,0 +1,16 @@
+sentence-transformers
+tqdm
+omegaconf
+accelerate
+torch
+numpy
+hydra-core
+wandb
+flake8
+pytest
+nltk
+datasets
+huggingface_hub
+pandas
+scikit-learn
+frozendict

@@ -1,0 +1,27 @@
+System: Thank you for calling SilverCare Health Solutions. This is Chris. How may I assist you today?
+User: Hi, Chris. I received a bill from urgent care for COVID testing. The bill says it’s for services that occurred after my coverage was terminated. I’m a little confused because there was an issue at the end of last year with SilverCare, and I still don’t really understand what happened. Something about a survey? I never received any notice about it. They did reinstate my coverage after I paid all my premiums, but when I called urgent care, they said they show that I didn’t have coverage as of December 31st, 2022, and they need a reference number from you to reprocess the claim.
+System: Okay, I understand your concern. Let me look into that for you. First, I’ll need to verify your information. Could you please confirm your name and mailing address so I can access your policy?
+User: Sure, it’s Joanna Pearl.
+System: Thank you, Joanna. What is your mailing address and city?
+User: 115 Broad Street, Savannah, Georgia 31406. My phone number is 312-374-6224.
+System: Got it. And would you like me to refer to you by your first name, Joanna?
+User: Yes, please.
+System: Thank you, Joanna. Now, just to confirm—this claim is for your daughter, Leah Pearl, correct?
+User: Yes, that’s right. The claim is for my daughter, Leah Pearl. The date of service is...
+System: I apologize for the mix-up! I initially thought the claim was for you, but now that I’ve confirmed, I’ll update my records. Please give me a moment while I pull up the claim for Leah.
+User: Thank you.
+System: Okay, I have Leah’s information now. Can you confirm her date of birth?
+User: Yes, Leah’s date of birth is January 6th, 2001.
+System: Thank you. Since Leah is over the age of 18, I will need her consent to access the claim details and proceed with assisting you. Is Leah available to speak with us now so I can get that consent on file?
+User: Oh, no, she’s not available. She’s in school right now.
+System: I understand. Our office is open until 8 PM, so if it’s possible for her to call back later, we can get the verbal consent on file. Or, if it’s easier, you both could call together at your convenience.
+User: Okay, I’ll have to wait until I can get in touch with her. This has been frustrating, though. I tried paying online, but it wouldn’t accept the payment, and that’s when I found out my coverage was terminated. No one could give me a reason for it until I got my agent involved. It was a mess, but I guess I understand the HIPAA rules.
+System: I completely understand, Joanna. I apologize for the frustration this has caused. Once you’re able to get Leah on the line with us, we’ll get everything sorted out for you. We’re available until 8 PM, so feel free to call back at any time that works for you both.
+User: Thank you. I’ll do that.
+System: You're very welcome. Is there anything else I can assist you with today, Joanna?
+User: Well, unless there’s something else SilverCare hasn’t told me about yet—honestly, they have a bit of a reputation for not paying claims correctly—I think I’m good for now. I’ll get in touch with Leah and call back when I can.
+System: Understood, and we’ll be happy to assist you when you’re ready. Thank you for calling SilverCare Health Solutions, Joanna. We look forward to resolving this for you.
+User: Thank you, Chris. I appreciate your help.
+System: You’re welcome! Have a great day, and take care.
+User: You too. Bye-bye.
+System: Bye-bye.

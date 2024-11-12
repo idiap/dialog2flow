@@ -1,0 +1,57 @@
+seed: 13
+
+model:
+  base: "bert-base-uncased"  # e.g. "TODBERT/TOD-BERT-JNT-V1"
+  pooling_mode: "cls"  # "cls"; "mean"; "max"; "weightedmean"; "lasttoken";
+  special_tokens: []  # e.g. ["[USR]", "[SYS]"]
+  max_seq_length: 128  # if null, then min(auto_model.config.max_position_embeddings, tokenizer.model_max_length)
+
+contrastive_learning:
+  label_pos: null
+  label_neg: null
+  use_contrastive_head: False
+  # contrastive_head_lr_scale: 100
+  softmax_temperature: .05  # the lower the more contrastive the loss is
+  soft_label_temperature: .25  # the greater the "softer" the labels are (only used when soft-labeled-contrastive-loss is used)
+  soft_label_model: "all-mpnet-base-v2" # model used to get the embeddings of the labels
+
+training:
+  batch_size: 16
+  chunk_size: 0
+  num_epochs: 2
+  warmup_steps: 100
+  learning_rate: 2e-5
+  use_single_optimizer: False  # whether or not to use a single optimizer for all the tasks (when multi-task learning)
+  continue_from_last_checkpoint: True
+
+evaluation:
+  evaluations_per_epoch: 50  # how many evaluations to perform per epoch
+  min_steps: 0  # minimum number of steps for evaluations to happend
+  metric: "correlation-score"  # "correlation-score"  (Spearman correlation) or "f1-score", "accuracy", "recall", "precision" (sklearn classification_report metrics)
+  metric_avg: "macro"  # "macro", "micro", "weighted" (ignore if not classification)
+  devset: null
+  testset: null
+  best_model_output_path: "models/"
+
+checkpointing:
+  saves_per_epoch: 0
+  min_steps: 50  # minimum number of steps for checkpoint saving to happend
+  total_limit: 0
+  always_save_after_each_epoch: True
+  path: "models/checkpoints"
+
+wandb:
+  project_name: null  # if null a default name will be given using the provided parameters (training set, model name, etc.)
+  log_freq: 100
+
+datasets:
+  csv:
+    column_name_sent1: "sent1"
+    column_name_sent2: "sent2"
+    column_name_ground_truth: "value"
+
+cache:
+  enabled: True
+  path: "./"
+  size: 10  # GB
+  verbose: 1

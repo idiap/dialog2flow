@@ -1,0 +1,67 @@
+System: Thank you for calling SilverCare Health Solutions. My name is Nina. How can I help you today?
+User: Hi Nina, my name is Ellen. Please note my call. Your call may be recorded for quality assurance purposes. I’m calling on behalf of Dr. Gail Williams' office to verify benefits and eligibility for James Adams. His date of birth is March 13th, 1958.
+System: Do you have a good callback number?
+User: Yes, it's 212-556-7825, and my extension is 4261.
+System: Okay, and the provider's address?
+User: The address is 342nd Street, Savannah, Georgia 31401. The provider ID number is 746000777343.
+System: Okay, that number is too long. For SilverCare Health Solutions, our member ID numbers are typically 11 digits.
+User: Oh, I see! Let's remove one of the zeros. The ID number is 74600777343.
+System: Okay, thank you! And the member's name again?
+User: James Adams, and his date of birth is March 13th, 1958.
+System: Thank you for the clarification. Do you have a chief complaint diagnosis code?
+User: I have a few more questions first. What is the effective date of the policy?
+System: The effective date is December 1st, 2022.
+User: Does the policy renew on a calendar year?
+System: Yes, it renews on the calendar year.
+User: Great. I’m calling to verify in-network benefits for a cortisone injection performed in the doctor's office. The procedure code is Q35915, the administration code is 95248, and the diagnosis code is F88.0. Also, Nina, is this the patient's primary insurance?
+System: Yes, this is the patient's primary insurance.
+User: Perfect. Can I have the patient's mailing address?
+System: The mailing address is PO Box 2735, Atlanta, Georgia 30334.
+User: Thank you. And what is the plan name?
+System: This is a commercial plan, and it’s on an HMO network.
+User: Is it called Epsilon Plus? What is the plan name exactly?
+System: It’s not Epsilon Plus. The plan name is listed as BSOP.
+User: B as in boy, S as in Sam, O as in Oscar, P as in Peter — okay, BSOP. And you said it’s an HMO plan?
+System: Yes, that's correct.
+User: Great. And what is the group number for billing purposes?
+System: The group number is 66726 SS1.
+User: S as in Sam, S as in Sam, 1?
+System: Yes, that’s correct.
+User: And what is the employer group name, if there is one?
+System: The employer group name is Dale Company Inc.
+User: Is this a premium plan?
+System: No, it is not a premium plan.
+User: Okay, thank you for all that information. I appreciate it.
+System: You're welcome! For this member’s policy, if the visit is billed as an office visit, the member will have a $50 copay per visit. The office visit copay is the only thing that applies to your Q code.
+User: Okay.
+System: The $50 copay does not apply to the out-of-pocket maximum. So the member will only be required to pay that $50 for an office visit.
+User: Okay. Was the $50 copay for the Q code or for the 95248?
+System: The injection procedure is included under the $50 copay for the office visit, and the Q code will require prior authorization through Express Scripts.
+User: Okay. Is there an authorization on file?
+System: Yes, there is an authorization on file from November 5th, 2022 to November 30th, 2022.
+User: Wait, the authorization is from November 5th to November 30th?
+System: Yes, that's correct.
+User: Okay, I need to make sure I have the right information here. The patient will be seen on the 9th.
+System: Yes, that’s correct.
+User: Okay, and what is the approval number?
+System: The approval number is K32600870.
+User: And how many injections are approved or allowed?
+System: There are 10 units allowed.
+User: Is the authorization only valid for 25 days or 26?
+System: The authorization covers from November 5th to November 30th.
+User: Okay, understood. And may I please have a phone number for the authorization department?
+System: Sure, the authorization department’s number is 888-583-5736.
+User: That’s 1-888-583-5736?
+System: Yes, that’s correct.
+User: Do you have a fax number for them?
+System: Unfortunately, I don’t have a fax number for that department.
+User: Okay. Do the benefits remain the same if we go through the specialty pharmacy distributor? Is prior authorization required for that?
+System: Yes, the benefits remain the same. Prior authorization is required if you go through the specialty pharmacy.
+User: Is it mandatory to use the specialty distributor, or can the provider use its own supply of cortisone?
+System: The provider can use their own supply of cortisone and bill it directly.
+User: Okay. So the provider can either use their own supply or use the specialty pharmacy? Got it. Thank you for all your help today. Can I please have a reference number for this call?
+System: Of course. The reference number for your call is 553446773242.
+User: Thank you, Nina. You’ve been very helpful. You enjoy the rest of your day!
+System: Thank you, have a great day as well!
+User: You too. Goodbye.
+System: Goodbye!

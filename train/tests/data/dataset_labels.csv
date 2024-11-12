@@ -1,0 +1,9 @@
+sent1,sent2,value
+hello,world,positive
+hello,moon,negative
+apple,orange,positive
+apple,car,negative
+orange,truck,negative
+person,dog,positive
+jsalt,ai,positive
+ignore,remove,neutral

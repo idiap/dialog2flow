@@ -1,0 +1,43 @@
+ystem: Thank you for calling SilverCare Health Solutions. My name is Nina. How can I assist you today?
+User: Yes, Nina, my name is Rosa Casey. I have a prescription that is very expensive. This is the first time I filled it in January, but I filled it three times before in October, November, and December of 2021. I paid the large deductible, and it came down to a reasonable amount. I got a new policy starting January 1st, and the man told me I didn’t have a large prescription deductible on this policy, but when I went to the pharmacy and they ran the drug again, it came up with an $800 deductible again. Could you check on this? There was a prior lock-in place for that drug, I think starting in October, and I don’t think that was applied.
+System: I’d be happy to take a look for you, Miss Rosa.
+User: Yes, please go ahead.
+System: I’ll check on that for you. You mentioned when you signed up for the plan, you told the agent you didn’t want a high deductible prescription plan, correct?
+User: Well, no, the agent told me that this new plan would be different. I had to pick a new one in January because the one I had was going up significantly. He told me about another plan that would be under $200 a month. The first question I asked him was, "Will it have that $800 pharmacy deductible?" He showed me a printout of the benefits, and it said $0 pharmacy deductible. So, I didn’t expect that large deductible at all with this new policy.
+System: I understand. Let me take a look at your benefits and see what’s going on. It’s possible the prescription itself is very expensive, but I’ll check to see if something was missed.
+User: It is very expensive.
+System: I just need to ask you a few questions, Miss Rosa, to pull up your account.
+User: Yes, go ahead.
+System: May I have your phone number, please?
+User: 345-653-6691. My address is 223 Main Street, Savannah, Georgia 31401.
+System: Thank you. Let me check on that information for you.
+User: Okay, I thought they just didn’t apply the prior authorization.
+System: Let me double-check that for you.
+User: I hope that’s it.
+System: It looks like your pharmacy benefits are integrated with your medical coverage, which means you can satisfy your medical deductible by getting prescriptions filled as well. The prescription cost will go toward satisfying your $800 medical deductible.
+User: He did not tell me that! That makes me so mad! He told me I was not going to have any pharmacy deductible.
+System: Yes, ma’am. Your pharmacy benefits are tied to your medical deductible. So when you fill prescriptions, it counts toward that medical deductible. Once you’ve satisfied the $800, we’ll begin covering your coinsurance for prescription drugs.
+User: Okay, but what deductible do I have to meet?
+System: You have an $800 medical deductible.
+User: Yeah, that’s right.
+System: And it is integrated with your pharmacy benefits. So when you fill prescriptions, those costs count toward your $800 medical deductible. Let me continue looking into the specifics of your prescription.
+User: Yeah, I just didn’t expect this. I was told there wouldn’t be a pharmacy deductible.
+System: I understand, Miss Rosa. Let me ask, which medication are you filling?
+User: It’s OxyCODONE 30 mg, extended release.
+System: Okay, OxyCODONE, 30 mg extended-release. I’ll check the system now.
+User: The pharmacy just ran it a little while ago.
+System: Thank you for the information. It looks like this prescription will satisfy your $800 deductible. So, the cost of the medication will go toward your deductible, and the remainder of the cost will apply to your coinsurance.
+User: So, after this, I won’t have to meet a deductible for this drug again?
+System: Correct! Once this medication satisfies your $800 deductible, SilverCare Health Solutions will cover 90% of the allowable charges for the prescription, and the remaining 10% will be your coinsurance. For brand-name medications like OxyCODONE, we’ll cover 70% of the allowable charge after your deductible is met.
+User: So, for this drug, after the deductible is met, I’ll pay 30% of the cost?
+System: That’s correct. For brand-name drugs like OxyCODONE, you’ll pay 30% of the allowable charge after your deductible is met.
+User: Oh, God, I didn’t expect that! I thought I was done with the deductible after the last plan. I thought the pharmacy and medical were separate.
+System: I understand. It’s definitely a change from your previous plan. But once the $800 deductible is met, your prescription coverage will be significantly reduced, and SilverCare Health Solutions will cover 90% of the allowable charges for generic medications and 70% for brand-name medications.
+User: Thank you for helping me understand this. I appreciate it.
+System: You’re welcome, Miss Rosa. Besides clarifying your prescription coverage, is there anything else I can assist you with today?
+User: No, not right now. I appreciate your help.
+System: You’re very welcome! Please feel free to contact us if you have any more questions in the future.
+User: Thank you. Stay safe!
+System: You too, Miss Rosa. Have a great day!
+User: You too. Bye-bye.
+System: Goodbye!

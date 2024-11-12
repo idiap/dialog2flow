@@ -1,0 +1,38 @@
+System: Thank you for calling SilverCare Health Solutions. This is Nina. How can I assist you today?
+User: Hey, I have a question for you. I work for the State of Georgia, and I have insurance through Epsilon Plus from NorthPoint Insurance. I heard they changed their pharmacy provider from Premium or High Impact to Standard or Express Scripts. I ordered new ID cards. Will those have the updated pharmacy information on them?
+System: Yes, the updated cards have been processed. The cards were mailed on December 30th, and they will reflect the new pharmacy provider information. The only change on the cards will be related to the pharmacy provider. Your medical information remains the same.
+User: Excellent! But if I need to go to the pharmacy before I get the new cards, is there a procedure for that?
+System: Yes, if you’d like, I can email you a copy of the ID cards now so you can use them at the pharmacy right away.
+User: Oh, that is wonderful. This is exactly why I chose SilverCare Health Solutions.
+System: I'm glad to hear that! May I ask you a few questions so I can access your account and send those cards to you?
+User: Sure.
+System: Thank you. May I have your name, please?
+User: Pardon me?
+System: Could I get your full name, please?
+User: Oh, sorry. It's Justin Tucker, T-U-C-K-E-R.
+System: Thank you, Mr. Tucker. May I have a callback number for you?
+User: Yes, I’m at work today, so you can reach me at 212-215-7162.
+System: Thank you. Could you also verify your address and your date of birth?
+User: Sure! My date of birth is June 18th, 1979. My address is 200 Union Street, Savannah, Georgia 35924.
+System: Thank you. I see your updated ID cards have been processed. You can also view your information online if you create an online account. Our online portal has been down for maintenance, but once it’s back up, you’ll be able to access your digital ID cards there as well.
+User: Okay, I’ll go ahead and check that out.
+System: Great! And I do have an email address on file for you: justin.d.tucker@gmail.com. Does that look correct?
+User: Yes, that’s correct.
+System: Thank you for confirming! I’ll go ahead and email you the ID cards now. Please hold on for just a moment.
+User: Appreciate it!
+System: Thank you so much for waiting, Mr. Tucker. I’ve sent the ID cards to your email. You’ll need to create a password to open the PDF since it contains personal health information.
+User: Understood. I’m looking at my phone now.
+System: Take your time.
+User: Okay, I see them. Will this update my password in your system?
+System: No, Mr. Tucker. The password you set to open the PDF will not affect your account password or online portal. You’ll still need to update that separately.
+User: Got it. It says there’s going to be a confirmation email. I’ll go ahead and click the link, and I have the ID cards.
+System: That’s great! Just to confirm, the physical ID cards were mailed out on October 30th. They should arrive within 7 to 14 business days. In the meantime, you can use the digital copy I just sent you.
+User: Yeah, I just want to make sure I can share it with my wife. She’ll need to go to the pharmacy before I do. Thanks again for all your help.
+System: It’s my pleasure! One thing to note: when you both access the online account, each of you will need to create your own account because everyone over the age of 18 has to have a separate login. So, your wife will need to create her own account to view her information.
+User: Okay, I’ll let her know.
+System: Is there anything else I can help you with today, Mr. Tucker?
+User: No, that’s everything. I appreciate it.
+System: You're very welcome! and have a wonderful day!
+User: You too. Thank you.
+System: Bye-bye.
+User: Bye-bye.

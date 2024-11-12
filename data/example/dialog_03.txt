@@ -1,0 +1,28 @@
+System: Thank you for calling SilverCare Health Solutions. This is Olivia. How can I assist you today?
+User: Hi Olivia, my name is Lisa Thompson. I'm calling from Dr. Robert Griffin's office. I have two patients who are covered under the Senior Advantage federal primary care plan. I was wondering how your company coordinates benefits with this plan. Does your coverage handle the deductible, or does it only cover coinsurance?
+System: I can definitely help you with that, Lisa. Could I have a callback number for you, please?
+User: Yes, my direct number is 415-789-0321.
+System: Thank you. Now, I see the provider ID has come through. Can you provide the address for Dr. Griffin's office?
+User: Sure, it’s 220 Oak Avenue, Riverside, California, 92501.
+System: Got it. And I’ll need the patient ID number, along with the patient’s name and date of birth.
+User: The first one is A-9853471. The patient is Clara Johnson, and her date of birth is June 10, 1947.
+System: Thank you. Let me pull up her contract and check on the coverage for you. One moment, please.
+User: Thanks, I appreciate it.
+System: Thanks for holding, Lisa. I’ve reviewed the plan details for Clara. Since she has the federal Senior Advantage primary, we will cover both the deductible and the coinsurance. If the federal plan denies any charges as patient responsibility, we’ll pick it up at 100% of the plan’s allowance.
+User: That’s great! Thanks so much. I’ve got one more patient.
+System: Of course, take your time. I’m ready when you are.
+User: The next patient’s ID is B-4678921.
+System: Got it. And the patient’s name and date of birth?
+User: It’s Mary Carter, and her date of birth is September 15, 1949.
+System: Thank you. Is this the same provider, Dr. Griffin?
+User: Yes, same office.
+System: Okay, let me check on that for you.
+User: Sure, no rush.
+System: Thanks for waiting. I’ve got the details for Mary’s plan now. She is also covered under the federal Senior Advantage primary care plan, so the benefits are the same as the first patient. We’ll handle the deductible and coinsurance, and if federal denies anything, we’ll cover it at 100%.
+User: Perfect, that’s exactly what I needed to know. Could I get a reference number for this inquiry as well?
+System: Absolutely! For Mary, the reference number is 042803005216.
+User: Great, thank you so much for all your help today.
+System: You’re very welcome, Lisa. It’s been a pleasure assisting you. Have a wonderful day.
+User: You too, Olivia. Take care!
+System: Thanks! Goodbye!
+User: Goodbye!
