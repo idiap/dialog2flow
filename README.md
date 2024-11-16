@@ -434,7 +434,7 @@ dataset = SimilarityDatasetFromLabels(data,
                                     labels_as_ix=True,
                                     shuffle=True)
 
-# Pre-computing and caching label embedings for the soft-contrastive loss (for label similarity)
+# Pre-computing and caching label embedings for label similarity
 loss_model.compute_label_embeddings(dataset)
 
 
