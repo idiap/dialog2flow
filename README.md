@@ -33,8 +33,8 @@
 
 It's simple!
 
-**Input:** A collection of dialogues or conversations.  
-**Output:** A step-by-step action transition graph!
+👉 **Input:** A collection of dialogues or conversations.  
+👉 **Output:** A step-by-step action transition graph!
 
 ### Input Example
 In the [`data/example/`](data/example/) folder, you'll find 13 customer service conversations for a fictional health insurance company, *SilverCare Health Solutions*. These dialogues were generated using ChatGPT to demonstrate the process, but you can replace them with your own real-world conversations.
@@ -68,7 +68,7 @@ Certainly! You can generate the graph step-by-step using two Python scripts as d
     conda activate dialog2flow
     pip install -r requirements.txt
     ```
-    _(:point_right: in case your having issues with package versions, we also provide the full exported conda environments ([`conda-exported.yml`](conda-exported.yml)) and requirements ([`requirements-exported.txt`](requirements-exported.txt)) from the exact environment the code was tested the last time)_
+    _(👉 in case your having issues with package versions, we also provide the full exported conda environments ([`conda-exported.yml`](conda-exported.yml)) and requirements ([`requirements-exported.txt`](requirements-exported.txt)) from the exact environment the code was tested the last time)_
 1. **Convert the 13 dialogues into 13 trajectories:**
     ```bash
     python extract_trajectories.py -i data/example/ -o output/ -t 0.6
