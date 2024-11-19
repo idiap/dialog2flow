@@ -33,8 +33,8 @@
 
 It's simple!
 
-👉 **Input:** A collection of dialogues or conversations.  
-👉 **Output:** A step-by-step action transition graph!
+1. **Input:** A collection of dialogues or conversations.  
+2. **Output:** A step-by-step action transition graph!
 
 ### Input Example
 In the [`data/example/`](data/example/) folder, you'll find 13 customer service conversations for a fictional health insurance company, *SilverCare Health Solutions*. These dialogues were generated using ChatGPT to demonstrate the process, but you can replace them with your own real-world conversations.
