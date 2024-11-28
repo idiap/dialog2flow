@@ -417,36 +417,35 @@ from spretrainer.datasets import SimilarityDatasetFromLabels
 from spretrainer.losses import LabeledContrastiveLoss
 
 
-# Our model
+# the model to train
 my_model = SentenceTransformer(...)
 
-# Our supervised soft-contrastive loss
+# the paper's supervised soft-contrastive loss
 loss_model = LabeledContrastiveLoss(model=my_model,
                                     use_soft_labels=True)
 
-# Our input data
+# The input data
 data = [["utterance-0", "label-0"],
         ["utterance-1", "label-1"],
         ...
         ["utterance-n", "label-n"]]  # (utterance, label) paris
 # Convert data to a Dataset object with InputExample()s as SentenceTransformer needs
 dataset = SimilarityDatasetFromLabels(data,
-                                    labels_as_ix=True,
-                                    shuffle=True)
+                                      labels_as_ix=True,
+                                      shuffle=True)
 
 # Pre-computing and caching label embedings for label similarity
 loss_model.compute_label_embeddings(dataset)
 
 
 data_iterator = DataLoader(dataset, ...)
+optimizer = ...
 
 # Let's train!
 for _ in range(n_epochs):
-    loss_model.zero_grad()
-    loss_model.train()
     for data in data_iterator:
-
         tokenized_batch, labels = data
+        optimizer.zero_grad()
         loss_value = loss_model(tokenized_batch, labels)
         loss_value.backward()
         optimizer.step()
