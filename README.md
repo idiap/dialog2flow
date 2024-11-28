@@ -447,8 +447,8 @@ for _ in range(n_epochs):
         tokenized_batch, labels = data
         optimizer.zero_grad()
 
-        loss_value = loss_model(tokenized_batch, labels)
-        loss_value.backward()
+        loss = loss_model(tokenized_batch, labels)
+        loss.backward()
 
         optimizer.step()
 ```
