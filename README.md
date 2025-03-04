@@ -5,27 +5,27 @@
 > This repository accompanies the paper ["Dialog2Flow: Pre-training Soft-Contrastive Sentence Embeddings for Automatic Dialog Flow Extraction"](https://aclanthology.org/2024.emnlp-main.310/), accepted to the EMNLP 2024 main conference.  
 > It contains code to replicate the experiments, train the models, and access released resources:
 > - 🤗 **Models and Dataset:** available [on Hugging Face](https://huggingface.co/collections/sergioburdisso/dialog2flow-67162ca33155cb90a533b7fa).
-> - :chart_with_downwards_trend: **Proposed Loss:** implementation details described [here](#proposed-soft-contrastive-loss).
-> - :microscope: **Experimentation:** To replicate the experiments and plots from our paper, see the ["Paper replication"](#paper-replication) section.
+> - :chart_with_downwards_trend: **Proposed Loss:** implementation details described [here](#chart_with_downwards_trend-proposed-soft-contrastive-loss).
+> - :microscope: **Experimentation:** To replicate the experiments and plots from our paper, see the ["Paper replication"](#microscope-paper-replication) section.
 > - :snowboarder: **Training:** For details on training the models from scratch, go to the [`train/`](train/) folder.
 
 
 ## :book: Table of Contents
 | :movie_camera:[video](https://youtu.be/kruoRujn49M) | :bar_chart:[slides](https://docs.google.com/presentation/d/1uoqAXasTpoQ6U1-OiAtTxFDfF2wnZdXyzSS8DEnQBt4/edit?usp=sharing) | :scroll:[poster](misc/Dialog2Flow_EMNLP_poster_a0.pdf) |
 
-- [How Does It Work?](#how-does-it-work)
-- [Paper Replication!](#paper-replication)
-  - [Resources](#resources)
+- [How Does It Work?](#sun_with_face-how-does-it-work)
+- [Paper Replication!](#microscope-paper-replication)
+  - [Resources](#pushpin-resources)
   - [Training](train/)
-  - [Getting Started](#getting-started)
-  - [Similarity-based Evaluation (Section 6)](#similarity-based-evaluation-section-6)
-    - [3D Voronoi Plots (as in Figure 3)](#3d-voronoi-plots-as-in-figure-3)
-  - [Dialog Flow Extraction Evaluation (Section 7)](#dialog-flow-extraction-evaluation-section-7)
-    - [Dialog Flow Figures (Figure 2, 4, A1, and A2)](#dialog-flow-figures-figure-2-4-a1-and-a2)
-  - [SpokenWOZ Ground Truth Trajectories](#spokenwoz-ground-truth-trajectories)
-  - [Proposed Soft-Contrastive loss](#proposed-soft-contrastive-loss)
-- [Citation](#citation)
-- [License](#license)
+  - [Getting Started](#paperclip-getting-started)
+  - [Similarity-based Evaluation (Section 6)](#triangular_ruler-similarity-based-evaluation-section-6)
+    - [3D Voronoi Plots (as in Figure 3)](#globe_with_meridians-3d-voronoi-plots-as-in-figure-3)
+  - [Dialog Flow Extraction Evaluation (Section 7)](#speech_balloon-dialog-flow-extraction-evaluation-section-7)
+    - [Dialog Flow Figures (Figure 2, 4, A1, and A2)](#crystal_ball-dialog-flow-figures-figure-2-4-a1-and-a2)
+  - [SpokenWOZ Ground Truth Trajectories](#feet-spokenwoz-ground-truth-trajectories)
+  - [Proposed Soft-Contrastive loss](#chart_with_downwards_trend-proposed-soft-contrastive-loss)
+- [Citation](#page_facing_up-citation)
+- [License](#ticket-license)
 
 ---
 
