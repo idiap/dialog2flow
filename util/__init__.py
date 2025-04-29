@@ -43,7 +43,7 @@ def get_openai_response(client, messages: list, model="gpt-4o", seed=42):
         response = chat(
             model=model,
             messages=messages,
-            options={"seed": seed})
+            options={"seed": seed, "stop": ['"']})
         return response['message']['content']
 
 
