@@ -31,12 +31,20 @@ memory_events = Memory('__cache__/chatgpt/labels_events', verbose=0)
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
 def get_openai_response(client, messages: list, model="gpt-4o", seed=42):
-    response = client.chat.completions.create(
-        seed=seed,
-        model=model,
-        messages=messages
-    )
-    return response.choices[0].message.content
+    if type(gpt_client) == OpenAI:
+        response = client.chat.completions.create(
+            seed=seed,
+            model=model,
+            messages=messages
+        )
+        return response.choices[0].message.content
+    else:
+        from ollama import chat
+        response = chat(
+            model=model,
+            messages=messages,
+            options={"seed": seed})
+        return response['message']['content']
 
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
@@ -52,7 +60,7 @@ def get_openai_embedding(client, docs: list, model="text-embedding-3-large", dim
 gpt_client = None
 def init_gpt(model_name="gpt-4-turbo-2024-04-09", seed=42):
     global gpt_client, gpt_model, gpt_seed
-    if gpt_client is None:
+    if gpt_client is None and "gpt" in model_name:
         gpt_client = OpenAI()
     gpt_model = model_name
     gpt_seed = seed
@@ -94,9 +102,9 @@ Canonical form is: "problem statement"
             {"role": "assistant", "content": 'The canonical name that represent the above utterances is: "'}
         ]
     response = get_openai_response(gpt_client,
-                                messages,
-                                model=gpt_model,
-                                seed=gpt_seed)
+                                   messages,
+                                   model=gpt_model,
+                                   seed=gpt_seed)
     m = re.match(r'.+?:\s*"(.+?)".*', response)
     if m:
         response = m.group(1)

@@ -43,7 +43,8 @@ parser.add_argument("-t", "--threshold", type=float, help="Distance threshold or
 parser.add_argument("-o", "--output-path", help="Folder to store the inferred trajectories.json file", default="output/")
 parser.add_argument("-sp", "--show-plot", action="store_true", help="Whether to show and save the Dendrogram with the hierarchy of clusters")
 parser.add_argument("-xes", "--save-xes", action="store_true", help="Whether to also save dialogues as 'action' logs (traces) XES files for process mining (e.g. using `pm4py` package)")
-parser.add_argument("-l", "--generate-labels", action="store_true", help="Generate action labels for discovered clusters with ChatGPT")
+parser.add_argument("-l", "--generate-labels", action="store_true", help="Generate action labels for discovered clusters with an LLM")
+parser.add_argument("-lm", "--labels-model", default="gpt-4o-mini", help="The model name of the LLM used to generate action labels")
 parser.add_argument("-tk", "--top-k", type=int, default=5, help="Top-K utteraces to be used to generate the labels with ChatGPT")
 parser.add_argument("-d", "--target-domains", nargs='*', help="Target domains to use. If empty, all domains", required=False)
 parser.add_argument("-s", "--seed", help="Seed for pseudo-random number generator", default=13)
@@ -335,7 +336,7 @@ if __name__ == "__main__":
 
             # Saving cluster information for later use (centroid embeddings and top-k utterances of each cluster)
             if args.generate_labels:
-                init_gpt()
+                init_gpt(args.labels_model)
                 for cluster in tqdm(cluster_topk_utts, desc=f"Cluster labels ({speaker.title()}):"):
                     cluster["name"] = get_cluster_label(cluster["utterances"])
             output_path_clusters = os.path.join(output_path_clusters_folder, domain) if multi_domain else output_path_clusters_folder

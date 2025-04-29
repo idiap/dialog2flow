@@ -114,10 +114,22 @@ python build_graph.py -i output/trajectories-dialog2flow-joint-bert-base.json \
                       -png \
                       -iv
 ```
-Make sure to set your OpenAI API key in the environment variables before running these commands:
+By default the LLM to use is OpenAI's "gpt-4o-mini" so make sure to set your OpenAI API key in the environment variables before running these commands:
 ```bash
 export OPENAI_API_KEY=<YOUR_API_KEY_HERE>
 ```
+
+**Note:** if you have `ollama` installed and running in your system you can also use it by passing the model name in the `-lm` argument, for instance, to use Gemma3 12B we can use `-lm gemma3:12b` as follows:
+```bash
+python extract_trajectories.py -i data/example/ -o output/ -t 0.6 -l -lm gemma3:12b
+python build_graph.py -i output/trajectories-dialog2flow-joint-bert-base.json \
+                      -o output/graph/ \
+                      -ew prob-out \
+                      -te 0.1 \
+                      -png \
+                      -iv
+```
+
 After running the commands, the new PNG graph (`output/graph/dialog2flow-joint-bert-base/graph.png`) will include meaningful step names as shown in the first graph :).
 
 ## :japanese_ogre: Where Did That `-t 0.6` Come From? 

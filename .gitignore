@@ -1,3 +1,6 @@
+.cache
+.ollama
+.DS_Store
 models/
 output/
 outputs/
@@ -5,4 +8,6 @@ wandb/
 __pycache__
 __cache__
 core
-.DS_Store
+train/data/dialog-acts+slots.csv
+train/data/dialog-acts.csv
+train/data/slots.csv
