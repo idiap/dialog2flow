@@ -245,8 +245,9 @@ def create_graph(trajectories, output_folder, clusters_info_folder=None):
         output_file = os.path.join(output_folder, "graph.html")
 
         logger.info(f"  Saving graph HTML interactive visualization in '{output_file}'")
-        shutil.copytree("util/visualization/", output_folder, dirs_exist_ok=True)
-        with open("util/visualization/graph.html") as reader:
+        path_visualization = os.path.join(os.path.dirname(__file__), "util/visualization/")
+        shutil.copytree(path_visualization, output_folder, dirs_exist_ok=True)
+        with open(os.path.join(path_visualization, "graph.html")) as reader:
             html = reader.read()
         html_first, html_end = html.split("// [GRAPH HERE]")
 
