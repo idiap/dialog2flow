@@ -99,7 +99,7 @@ Canonical form is: "problem statement"
             {"role": "user", "content": """Give the following list of utterance provide a single canonical name that represent all of them:
 {utts}
 """.replace("{utts}", "\n".join(f"{ix+1}. {utt}" for ix, utt in enumerate(utterances)))},
-            {"role": "assistant", "content": 'The canonical name that represent the above utterances is: "'}
+            {"role": "assistant", "content": 'Canonical form is: "'}
         ]
     response = get_openai_response(gpt_client,
                                    messages,
@@ -112,8 +112,6 @@ Canonical form is: "problem statement"
         m = re.match(r'.+?:\s*"(.+)', response)
         if m:
             response = m.group(1)
-        else:
-            print("Unable to parse response, using raw value:", response)
     return response.strip('"').title()
 
 
