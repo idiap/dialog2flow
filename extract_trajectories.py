@@ -19,14 +19,19 @@ import argparse
 import numpy as np
 
 from tqdm import tqdm
+from typing import List
 from matplotlib import pyplot as plt
 from simpleneighbors import SimpleNeighbors
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import SentenceTransformer
 from scipy.cluster.hierarchy import dendrogram, to_tree
 
-from util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
-                 slugify, get_turn_text, init_gpt, get_cluster_label
+try:
+    from util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
+                    slugify, get_turn_text, init_gpt, get_cluster_label
+except ModuleNotFoundError:
+    from .util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
+                      slugify, get_turn_text, init_gpt, get_cluster_label
 
 DEFAULT_OPENAI_MODEL = "text-embedding-3-large"
 DEFAULT_SYS_NAME = "system"
@@ -35,25 +40,28 @@ DEFAULT_USER_ALIASES = ["user", "customer", "client"]
 DEFAULT_TOKEN_START = "[start]"
 DEFAULT_TOKEN_END = "[end]"
 
-# e.g python extract_trajectories.py -i data/example/ -o output/ -m "sergioburdisso/dialog2flow-joint-bert-base" -t .6 -sp
-parser = argparse.ArgumentParser(prog="Convert a collection of dialogues to discrete trajectories by clustering their utterance embeddings")
-parser.add_argument("-i", "--input-path", help="Path to the input dialogues. A folder with txt, tsv or json files", required=True)
-parser.add_argument("-m", "--model", help="Sentence-Bert model used to generate the embeddings", default="sergioburdisso/dialog2flow-joint-bert-base")
-parser.add_argument("-t", "--threshold", type=float, help="Distance threshold or the number of cluster for the Agglomerative Clustering algorithm")
-parser.add_argument("-o", "--output-path", help="Folder to store the inferred trajectories.json file", default="output/")
-parser.add_argument("-sp", "--show-plot", action="store_true", help="Whether to show and save the Dendrogram with the hierarchy of clusters")
-parser.add_argument("-xes", "--save-xes", action="store_true", help="Whether to also save dialogues as 'action' logs (traces) XES files for process mining (e.g. using `pm4py` package)")
-parser.add_argument("-l", "--generate-labels", action="store_true", help="Generate action labels for discovered clusters with an LLM")
-parser.add_argument("-lm", "--labels-model", default="gpt-4o-mini", help="The model name of the LLM used to generate action labels")
-parser.add_argument("-tk", "--top-k", type=int, default=5, help="Top-K utteraces to be used to generate the labels with ChatGPT")
-parser.add_argument("-d", "--target-domains", nargs='*', help="Target domains to use. If empty, all domains", required=False)
-parser.add_argument("-s", "--seed", help="Seed for pseudo-random number generator", default=13)
+seed = 13
+if __name__ == "__main__":
+    # e.g python extract_trajectories.py -i data/example/ -o output/ -m "sergioburdisso/dialog2flow-joint-bert-base" -t .6 -sp
+    parser = argparse.ArgumentParser(prog="Convert a collection of dialogues to discrete trajectories by clustering their utterance embeddings")
+    parser.add_argument("-i", "--input-path", help="Path to the input dialogues. A folder with txt, tsv or json files", required=True)
+    parser.add_argument("-m", "--model", help="Sentence-Bert model used to generate the embeddings", default="sergioburdisso/dialog2flow-joint-bert-base")
+    parser.add_argument("-t", "--threshold", type=float, help="Distance threshold or the number of cluster for the Agglomerative Clustering algorithm")
+    parser.add_argument("-o", "--output-path", help="Folder to store the inferred trajectories.json file", default="output/")
+    parser.add_argument("-sd", "--show-dendrogram", action="store_true", help="Whether to show and save the Dendrogram with the hierarchy of clusters")
+    parser.add_argument("-l", "--labels-enabled", action="store_true", help="Generate action labels for discovered clusters with an LLM")
+    parser.add_argument("-lm", "--labels-model", default="gpt-4o-mini", help="The model name of the LLM used to generate action labels")
+    parser.add_argument("-lk", "--labels-top-k", type=int, default=5, help="Top-K utteraces to be used to generate the labels with LLM")
+    parser.add_argument("-d", "--target-domains", nargs='*', help="Target domains to use. If empty, all domains", required=False)
+    parser.add_argument("-s", "--seed", help="Seed for pseudo-random number generator", default=seed)
 
-args = parser.parse_args()
+    args = parser.parse_args()
+    seed = args.seed
 
-torch.manual_seed(args.seed)
-torch.cuda.manual_seed_all(args.seed)
-np.random.seed(args.seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+np.random.seed(seed)
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s.%(msecs)03d] %(levelname)s: %(message)s')
 
@@ -65,7 +73,7 @@ else:
 
 def get_txt_dialog(path_file):
     dialog = []
-    warn = False
+    warning = False
     with open(path_file) as reader:
         for line in [ln for ln in reader.read().split("\n") if ln]:
             m = re.match(r"^(\w+?):\s*(.+)", line)
@@ -73,9 +81,9 @@ def get_txt_dialog(path_file):
                 speaker = m.group(1)
                 text = m.group(2)
             else:
-                if not warn:
+                if not warning:
                     logger.warning(f"Invalid format in file `{path_file}`. Expected SPEAKER:UTTERANCE in each line of file: using default speaker ('{DEFAULT_USER_NAME}').")
-                    warn = True
+                    warning = True
                 speaker = DEFAULT_USER_NAME
                 text = line
             dialog.append({
@@ -176,26 +184,40 @@ def plot_dendrogram(model, title, path, labels=None, **kwargs):
     plt.show()
 
 
-if __name__ == "__main__":
+def dialog2trajectories(
+    input_path: str,
+    output_path: str = None,
+    embedding_model: str = "sergioburdisso/dialog2flow-joint-bert-base",
+    threshold: float = .6,
+    labels_enabled: bool = False,
+    labels_model: str = "qwen2.5:14b",
+    labels_top_k: int = 5,
+    dendrogram: bool = True,
+    target_domains: List[str] = None
+):
+
+    if not output_path:
+        output_path = os.path.join(input_path, "dialog2flow")
+
     logger.info("Reading conversations...")
-    if not os.path.exists(args.input_path):
-        raise FileNotFoundError(f"The provided input path is not a valid path: '{args.input_path}'")
+    if not os.path.exists(input_path):
+        raise FileNotFoundError(f"The provided input path is not a valid path: '{input_path}'")
 
     dialogues = {}
-    if os.path.isfile(args.input_path):
-        assert args.input_path.endswith(".json"), "input path should be either a single JSON file or a folder containing one file per conversation"
-        with open(args.input_path) as reader:
+    if os.path.isfile(input_path):
+        assert input_path.endswith(".json"), "input path should be either a single JSON file or a folder containing one file per conversation"
+        with open(input_path) as reader:
             dialogues = json.load(reader)
-    elif os.path.isdir(args.input_path):
-        domain = os.path.basename(os.path.normpath(args.input_path))
-        for filename in tqdm(os.listdir(args.input_path), desc="Dialogues:"):
+    elif os.path.isdir(input_path):
+        domain = os.path.basename(os.path.normpath(input_path))
+        for filename in tqdm(os.listdir(input_path), desc="Dialogues:"):
             dialog_id, ext = os.path.splitext(filename)
             if ext == ".json":
-                dialogue = get_json_dialog(os.path.join(args.input_path, filename))
+                dialogue = get_json_dialog(os.path.join(input_path, filename))
             elif ext == ".tsv":
-                dialogue = get_tsv_dialog(os.path.join(args.input_path, filename))
+                dialogue = get_tsv_dialog(os.path.join(input_path, filename))
             elif ext == ".txt":
-                dialogue = get_txt_dialog(os.path.join(args.input_path, filename))
+                dialogue = get_txt_dialog(os.path.join(input_path, filename))
             else:
                 logger.warning(f"File extension '{ext}' not supported: skipping file '{filename}'")
                 continue
@@ -220,9 +242,9 @@ if __name__ == "__main__":
         logger.error("Input path should be either a single JSON file or a folder containing one file per conversation")
         exit()
 
-    model_name = slugify(os.path.basename(args.model))
-    output_path_trajectories = os.path.join(args.output_path, f"trajectories-{model_name}.json")
-    output_path_clusters_folder = os.path.join(os.path.join(args.output_path, "clusters", model_name))
+    model_name = slugify(os.path.basename(embedding_model))
+    output_path_trajectories = os.path.join(output_path, f"trajectories-{model_name}.json")
+    output_path_clusters_folder = os.path.join(os.path.join(output_path, "clusters", model_name))
 
     domains = {}
     if os.path.exists(output_path_trajectories):
@@ -236,7 +258,7 @@ if __name__ == "__main__":
         domain = next(iter(dialogue["goal"]))
         unique_domains.add(domain)
 
-        if args.target_domains and domain not in args.target_domains:
+        if target_domains and domain not in target_domains:
             continue
 
         new_dialogs[dialog_id] = dialogue
@@ -250,7 +272,7 @@ if __name__ == "__main__":
 
     multi_domain = len(unique_domains) > 1
 
-    logger.info(f"Using model '{args.model}' model to generate the embeddings.")
+    logger.info(f"Using model '{embedding_model}' model to generate the embeddings.")
     pb_domain = tqdm(domains, desc="Domains") if multi_domain else domains
     for domain in pb_domain:
         if multi_domain:
@@ -262,19 +284,19 @@ if __name__ == "__main__":
         domains[domain]["labels"] = np.array([get_turn_text(t, use_ground_truth=True)
                                               for t in domains[domain]["log"]])
 
-        if "todbert_sbd" in args.model.lower():
-            sentence_encoder = SentenceTransformerSbdBERT.from_pretrained(args.model, args=args)
+        if "todbert_sbd" in embedding_model.lower():
+            sentence_encoder = SentenceTransformerSbdBERT.from_pretrained(embedding_model, args=args)
             sentence_encoder.to(device)
-        elif "dialogpt" in args.model.lower():
-            sentence_encoder = SentenceTransformerDialoGPT(args.model, device=device)
-        elif args.model.lower() == "chatgpt" or "openai" in args.model.lower():
-            if "openai" in args.model.lower() and "/" in args.model:  # e.g. openai/text-embedding-3-large
-                model = os.path.basename(args.model)
+        elif "dialogpt" in embedding_model.lower():
+            sentence_encoder = SentenceTransformerDialoGPT(embedding_model, device=device)
+        elif embedding_model.lower() == "chatgpt" or "openai" in embedding_model.lower():
+            if "openai" in embedding_model.lower() and "/" in embedding_model:  # e.g. openai/text-embedding-3-large
+                embedding_model = os.path.basename(embedding_model)
             else:
-                model = DEFAULT_OPENAI_MODEL
-            sentence_encoder = SentenceTransformerOpenAI(model)
+                embedding_model = DEFAULT_OPENAI_MODEL
+            sentence_encoder = SentenceTransformerOpenAI(embedding_model)
         else:
-            sentence_encoder = SentenceTransformer(args.model, device=device)
+            sentence_encoder = SentenceTransformer(embedding_model, device=device)
 
         domains[domain]["emb"] = sentence_encoder.encode(domains[domain]["text"], show_progress_bar=True, batch_size=128, device=device)
         # GloVe can return some Zero vectors, which invalidate the use of cosine distance, seting
@@ -294,7 +316,7 @@ if __name__ == "__main__":
                 logger.warning(f"No {speaker} utterances were found.")
                 continue
 
-            if args.threshold is None or args.threshold < 0:
+            if threshold is None or threshold < 0:
                 logger.info("No valid threshold or number of cluster was provided. "
                             "Trying to set the number of clusters using ground truth annotation (if available)")
                 unique_labels = np.unique(domains[domain]["labels"][speaker_mask]).tolist()
@@ -302,10 +324,10 @@ if __name__ == "__main__":
 
                 n_unique_labels = len(unique_labels)
                 n_clusters = n_unique_labels
-            elif args.threshold > 1 and args.threshold == int(args.threshold):
-                n_clusters = int(args.threshold)
+            elif threshold > 1 and threshold == int(threshold):
+                n_clusters = int(threshold)
             else:
-                distance_threshold = args.threshold
+                distance_threshold = threshold
 
             clustering = AgglomerativeClustering(n_clusters=n_clusters,
                                                  linkage=linkage,
@@ -327,7 +349,7 @@ if __name__ == "__main__":
                 index.build()
 
                 centroids[ix] = cluster_embs.mean(axis=0)
-                top_k = args.top_k
+                top_k = labels_top_k
                 while cluster_topk_utts[ix] is None and top_k > 0:
                     try:
                         cluster_topk_utts[ix] = {"name": None, "utterances": index.nearest(centroids[ix], top_k)}
@@ -335,10 +357,10 @@ if __name__ == "__main__":
                         top_k -= 1
 
             # Saving cluster information for later use (centroid embeddings and top-k utterances of each cluster)
-            if args.generate_labels:
-                init_gpt(args.labels_model)
+            if labels_enabled:
+                init_gpt(labels_model)
                 for cluster in tqdm(cluster_topk_utts, desc=f"Cluster labels ({speaker.title()}):"):
-                    cluster["name"] = get_cluster_label(cluster["utterances"])
+                    cluster["name"] = get_cluster_label(cluster["utterances"], labels_model)
             output_path_clusters = os.path.join(output_path_clusters_folder, domain) if multi_domain else output_path_clusters_folder
             os.makedirs(output_path_clusters, exist_ok=True)
             with open(os.path.join(output_path_clusters, f"centroid-embeddings.{speaker.lower()}.npy"), "wb") as writer:
@@ -356,8 +378,8 @@ if __name__ == "__main__":
                                                        "info": cluster_topk_utts[tid],
                                                        "id": f"{speaker[0].lower()}{tid}"}
 
-            if args.show_plot:
-                plots_path = os.path.join(args.output_path, "plots")
+            if dendrogram:
+                plots_path = os.path.join(output_path, "plots")
                 if multi_domain:
                     plots_path = os.path.join(plots_path, domain)
                 os.makedirs(plots_path, exist_ok=True)
@@ -380,21 +402,23 @@ if __name__ == "__main__":
         with open(os.path.join(output_path_clusters, f"cluster-id-sequences.json"), "w") as writer:
             json.dump(state_sequences, writer)
 
-        if args.save_xes:
-            # Saving dialogues as action, event or stages logs (traces) (XES files)
-            xes_path = os.path.join(args.output_path, "xes")
-            if multi_domain:
-                xes_path = os.path.join(xes_path, domain)
-            actions_logs = [[t["turn"]["name"] for t in d["log"][1:-1]]
-                            for d in new_dialogs.values() if domain in d["goal"]]
-            os.makedirs(xes_path, exist_ok=True)
-            xes_path = os.path.join(xes_path, f"action_log_{model_name}.xes")
-            logger.info(f"Saving event log XES file in `{xes_path}`")
-            logger.warn(f"XES file convertion not implemented yet")
-
         for ix, turn in enumerate(domains[domain]["log"]):
             turn["turn"] = f"{turn['tag'].upper()}: {normalized_turn_names[turn['tag']][domains[domain]['prediction'][ix]]['name']}"
 
-    os.makedirs(args.output_path, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
     with open(output_path_trajectories, "w") as writer:
         json.dump(new_dialogs, writer)
+
+
+if __name__ == "__main__":
+    dialog2trajectories(
+        input_path=args.input_path,
+        output_path=args.output_path,
+        embedding_model=args.model,
+        threshold=args.threshold,
+        labels_enabled=args.labels_enabled,
+        labels_model=args.labels_model,
+        labels_top_k=args.labels_top_k,
+        dendrogram=args.show_dendrogram,
+        target_domains=args.target_domains
+   )

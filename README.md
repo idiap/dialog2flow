@@ -134,9 +134,9 @@ After running the commands, the new PNG graph (`output/graph/dialog2flow-joint-b
 
 ## :japanese_ogre: Where Did That `-t 0.6` Come From? 
 
-As described in Appendix F of the paper, determining the correct number of steps (clusters) is non-trivial. We use dendrogram plots to assist with this. To generate the dendrogram plots, add the `-sp` argument to the `extract_trajectories.py` script:
+As described in Appendix F of the paper, determining the correct number of steps (clusters) is non-trivial. We use dendrogram plots to assist with this. To generate the dendrogram plots, add the `-sd` (or `--show-dendrogram`) argument to the `extract_trajectories.py` script:
 ```
-python extract_trajectories.py -i data/example/ -o output/ -t .6 -sp
+python extract_trajectories.py -i data/example/ -o output/ -t .6 -sd
 ```
 The plots will be saved in the output/plots directory. For example, you can view the dendrogram for the user (customer) utterances in `output/plots/dendrogram_dialog2flow-joint-bert-base.user.png`:
 
@@ -144,7 +144,7 @@ The plots will be saved in the output/plots directory. For example, you can view
 
 The plot shows that a threshold of 0.6 seems appropriate, yielding over 20 clusters (steps). If you want to use a fixed number of clusters (e.g., 10 steps), specify the number instead of the threshold:
 ```
-python extract_trajectories.py -i data/example/ -o output/ -t 10 -sp
+python extract_trajectories.py -i data/example/ -o output/ -t 10 -sd
 ```
 This will result in a more simplified graph.
 

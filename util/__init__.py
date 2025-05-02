@@ -25,8 +25,7 @@ from transformers import BertPreTrainedModel, BertModel, AutoTokenizer, AutoMode
 STR_MODEL_COLUMN = "Model"
 STR_AVERAGE_COLUMN = "AVG."
 
-memory = Memory('__cache__/chatgpt/labels_action', verbose=0)
-memory_events = Memory('__cache__/chatgpt/labels_events', verbose=0)
+memory = Memory('__cache__/llm_labels', verbose=0)
 
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
@@ -67,7 +66,7 @@ def init_gpt(model_name="gpt-4-turbo-2024-04-09", seed=42):
 
 
 @memory.cache
-def get_cluster_label(utterances):
+def get_cluster_label(utterances, llm_model_name):
     messages = [
             {"role": "system", "content": """Your task is to annotate conversational utterances with the intent expressed as canonical forms. A canonical form is a short summary representing the intent of a set of utterances - it is neither too verbose nor too short.
 Be aware that required canonical forms should avoid containing specific names or quantities, only represent the intent in abstract terms.
