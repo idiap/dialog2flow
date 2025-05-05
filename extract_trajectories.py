@@ -20,6 +20,7 @@ import numpy as np
 
 from tqdm import tqdm
 from typing import List, Union
+from tenacity import RetryError
 from matplotlib import pyplot as plt
 from simpleneighbors import SimpleNeighbors
 from sklearn.cluster import AgglomerativeClustering
@@ -29,9 +30,12 @@ from scipy.cluster.hierarchy import dendrogram, to_tree
 try:
     from util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
                     slugify, get_turn_text, init_gpt, get_cluster_label
+    from build_graph import trajectory2graph
 except ModuleNotFoundError:
     from .util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
                       slugify, get_turn_text, init_gpt, get_cluster_label
+    from .build_graph import trajectory2graph
+
 
 DEFAULT_OPENAI_MODEL = "text-embedding-3-large"
 DEFAULT_SYS_NAME = "system"
@@ -194,7 +198,7 @@ def dialog2trajectories(
     labels_top_k: int = 5,
     dendrogram: bool = True,
     target_domains: List[str] = None
-):
+) -> str:
 
     if type(thresholds) is not list:
         thresholds = [thresholds]
@@ -362,9 +366,16 @@ def dialog2trajectories(
 
             # Saving cluster information for later use (centroid embeddings and top-k utterances of each cluster)
             if labels_enabled:
-                init_gpt(labels_model)
-                for cluster in tqdm(cluster_topk_utts, desc=f"Cluster labels ({speaker.title()}):"):
-                    cluster["name"] = get_cluster_label(cluster["utterances"], labels_model)
+                try:
+                    init_gpt(labels_model)
+                    for cluster in tqdm(cluster_topk_utts, desc=f"Cluster labels ({speaker.title()}):"):
+                        cluster["name"] = get_cluster_label(cluster["utterances"], labels_model)
+                except RetryError:
+                    error_details = ""
+                    if "gpt" not in labels_model:
+                        error_details = "Is ollama server running (`ollama serve`)? is the model locally availbale (`ollama list`)?"
+                    logger.error(f"Error while trying to generate node labels with LLM model `{labels_model}`. {error_details}")
+
             output_path_clusters = os.path.join(output_path_clusters_folder, domain) if multi_domain else output_path_clusters_folder
             os.makedirs(output_path_clusters, exist_ok=True)
             with open(os.path.join(output_path_clusters, f"centroid-embeddings.{speaker.lower()}.npy"), "wb") as writer:
@@ -412,6 +423,45 @@ def dialog2trajectories(
     os.makedirs(output_path, exist_ok=True)
     with open(output_path_trajectories, "w") as writer:
         json.dump(new_dialogs, writer)
+
+    return output_path_trajectories
+
+
+def dialog2graph(
+    input_path: str,
+    output_path: str = None,
+    node_embedding_model: str = "sergioburdisso/dialog2flow-joint-bert-base",
+    node_thresholds: Union[Union[float, int], List[Union[float, int]]] = .6,  # [system threshold/actions, user threshold/actions]
+    node_llm_labels_enabled: bool = True,
+    node_llm_labels_model: str = "qwen2.5:14b",
+    node_llm_labels_top_k: int = 5,
+    edges_weight_type: str ="prob-out",
+    edges_prune_threshold: float =0.05,
+    out_png: bool =True,
+    out_interactive: bool =False,
+    target_domains: List[str] = None
+) -> str:
+
+    path_trajectories = dialog2trajectories(
+        input_path=input_path,
+        output_path=output_path,
+        embedding_model=node_embedding_model,
+        thresholds=node_thresholds,
+        labels_enabled=node_llm_labels_enabled,
+        labels_model=node_llm_labels_model,
+        labels_top_k=node_llm_labels_top_k,
+        dendrogram=False,
+        target_domains=target_domains
+    )
+
+    trajectory2graph(
+        path_trajectories=path_trajectories,
+        output_folder=os.path.join(os.path.split(path_trajectories)[0], "graph"),
+        edges_weight=edges_weight_type,
+        prune_threshold_edges=edges_prune_threshold,
+        png_visualization=out_png,
+        interactive_visualization=out_interactive,
+    )
 
 
 if __name__ == "__main__":
