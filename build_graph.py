@@ -16,6 +16,7 @@ import logging
 import argparse
 import networkx as nx
 
+from typing import List, Dict
 from graphviz import Digraph
 
 DEFAULT_SYS_NAME = "system"
@@ -24,20 +25,21 @@ DEFAULT_TOKEN_START = "[start]"
 DEFAULT_TOKEN_END = "[end]"
 NODE_UTTERANCE_LEN = 30
 
-#  e.g. python build_graph.py -i output/trajectories-dialog2flow-joint-bert-base.json  -te 0.05 -tn 0 -ew prob-out
-parser = argparse.ArgumentParser(prog="Generate action transition graph from a given trajectories JSON file.")
-parser.add_argument("-i", "--input-path", help="Path to the 'trajectories.json' file or folder with trajectoriy files", required=True)
-parser.add_argument("-o", "--output-path", help="Folder to store the graphs per domain", default="output/graph")
-parser.add_argument("-d", "--target-domains", nargs='*', help="Target domains to use. If empty, all domains")
-parser.add_argument("-te", "--prune-threshold-edges", type=float, help="Threshold value for pruning the graph edges", default=0.2)
-parser.add_argument("-tn", "--prune-threshold-nodes", type=float, help="Threshold value for pruning the graph nodes", default=0.023)
-parser.add_argument("-ew", "--edges-weight", choices=["max", "max-out", "prob-out"], help="How to weight the edges: "
-                    "'max' for frequency / max overall frequency; "
-                    "'max-out' for frequency / max output sibling frequency; "
-                    "'prob-out' for frequency / sum(all output siblings)", default="max-out")
-parser.add_argument("-png", "--png-visualization", action="store_true", help="Generate PNG image files.")
-parser.add_argument("-iv", "--interactive-visualization", action="store_true", help="Generate interactive visualization files.")
-args = parser.parse_args()
+if __name__ == "__main__":
+    #  e.g. python build_graph.py -i output/trajectories-dialog2flow-joint-bert-base.json  -te 0.05 -tn 0 -ew prob-out
+    parser = argparse.ArgumentParser(prog="Generate action transition graph from a given trajectories JSON file.")
+    parser.add_argument("-i", "--input-path", help="Path to the 'trajectories.json' file or folder with trajectoriy files", required=True)
+    parser.add_argument("-o", "--output-path", help="Folder to store the graphs per domain", default="output/graph")
+    parser.add_argument("-d", "--target-domains", nargs='*', help="Target domains to use. If empty, all domains")
+    parser.add_argument("-te", "--prune-threshold-edges", type=float, help="Threshold value for pruning the graph edges", default=0.2)
+    parser.add_argument("-tn", "--prune-threshold-nodes", type=float, help="Threshold value for pruning the graph nodes", default=0.023)
+    parser.add_argument("-ew", "--edges-weight", choices=["max", "max-out", "prob-out"], help="How to weight the edges: "
+                        "'max' for frequency / max overall frequency; "
+                        "'max-out' for frequency / max output sibling frequency; "
+                        "'prob-out' for frequency / sum(all output siblings)", default="max-out")
+    parser.add_argument("-png", "--png-visualization", action="store_true", help="Generate PNG image files.")
+    parser.add_argument("-iv", "--interactive-visualization", action="store_true", help="Generate interactive visualization files.")
+    args = parser.parse_args()
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s.%(msecs)03d] %(message)s')
 
@@ -123,7 +125,15 @@ def normalize_edges(G, policy):  # policy= "max" or "max-out" or "sum-out"
                     d['weight'] = d['fr'] / total_fr
 
 
-def create_graph(trajectories, output_folder, clusters_info_folder=None):
+def create_graph(trajectories: Dict,
+                 output_folder: str,
+                 clusters_info_folder: str = None,
+                 edges_weight: str = "max-out",
+                 prune_threshold_nodes: float = 0.023,
+                 prune_threshold_edges: float = 0.2,
+                 png_visualization: bool = True,
+                 interactive_visualization: bool = False):
+
     G = nx.DiGraph()
     G.add_node(DEFAULT_TOKEN_START, color="green", fr=1)
     G.add_node(DEFAULT_TOKEN_END, color="gray", border_color='black', border_size=2, fr=1)
@@ -175,11 +185,11 @@ def create_graph(trajectories, output_folder, clusters_info_folder=None):
         else:
             d["weight"] = d["fr"] / max_fr
 
-    normalize_edges(G, policy=args.edges_weight)
+    normalize_edges(G, policy=edges_weight)
 
     logger.info(f"  #Nodes before pruning: {len(G.nodes)}")
     G.remove_edges_from(nx.selfloop_edges(G))
-    prune_graph(G, threshold=args.prune_threshold_nodes)
+    prune_graph(G, threshold=prune_threshold_nodes)
 
     # Widest path ("Happy path")
     G2 = G.copy()
@@ -199,12 +209,12 @@ def create_graph(trajectories, output_folder, clusters_info_folder=None):
     g = Digraph('G', filename=output_file)
     g.node_attr.update(shape="underline", style="filled", fillcolor="white")
 
-    prune_graph(G, args.prune_threshold_edges,
+    prune_graph(G, prune_threshold_edges,
                 by="edge",
                 remove_unrecheable=True)
     logger.info(f"  #Nodes after pruning: {len(G.nodes)}")
 
-    normalize_edges(G, policy=args.edges_weight)  # normalizing again to recompute the weights
+    normalize_edges(G, policy=edges_weight)  # normalizing again to recompute the weights
 
     for s0, s1, w in G.edges(data="weight"):
         try:
@@ -236,11 +246,17 @@ def create_graph(trajectories, output_folder, clusters_info_folder=None):
     g.graph_attr["dpi"] = "300"
     logger.info(f"  Saving graph as DOT format in '{output_file}.dot'")
     g.render(output_file, view=False, format="dot")
-    if args.png_visualization:
+    if png_visualization:
         logger.info(f"  Saving graph PNG visualization in '{output_file}.png'")
         g.render(output_file, view=False, format="png")
+        try:
+            from PIL import Image
+            image = Image.open(f"{output_file}.png")
+            image.show()
+        except:
+            pass
 
-    if args.interactive_visualization:
+    if interactive_visualization:
         output_folder = os.path.join(output_folder, "visualization")
         output_file = os.path.join(output_folder, "graph.html")
 
@@ -298,7 +314,16 @@ def create_graph(trajectories, output_folder, clusters_info_folder=None):
         with open(output_file, "w") as writer:
             writer.write(html_first + graph_html + html_end)
 
-def process_trajectories(path_trajectories, output_folder):
+
+def trajectory2graph(path_trajectories: str,
+                     output_folder: str,
+                     edges_weight: str = "prob-out",
+                     prune_threshold_nodes: float = 0.023,
+                     prune_threshold_edges: float = 0.2,
+                     png_visualization: bool = True,
+                     interactive_visualization: bool = False,
+                     target_domains: List[str] = None):
+
     logger.info(f"  Reading trajectories from ({path_trajectories})...")
     with open(path_trajectories) as reader:
         data = json.load(reader)
@@ -312,7 +337,7 @@ def process_trajectories(path_trajectories, output_folder):
     all_trajectories = {}
     for dialog_id in data:
         domain = next(iter(data[dialog_id]["goal"]))
-        if args.target_domains and domain not in args.target_domains:
+        if target_domains and domain not in target_domains:
             continue
 
         if domain not in all_trajectories:
@@ -352,7 +377,18 @@ def process_trajectories(path_trajectories, output_folder):
             output_path_clusters = os.path.join(output_path_clusters, domain) if multi_domain else output_path_clusters
         else:
             output_path_clusters = None
-        create_graph(all_trajectories[domain], output_path, output_path_clusters)
+
+        create_graph(
+            all_trajectories[domain],
+            output_path,
+            output_path_clusters,
+            edges_weight,
+            prune_threshold_nodes,
+            prune_threshold_edges,
+            png_visualization,
+            interactive_visualization,
+        )
+
         logger.info(f"  Finished creating the graph.")
 
 if __name__ == "__main__":
@@ -360,6 +396,22 @@ if __name__ == "__main__":
         for filename in os.listdir(args.input_path):
             m = re.match(r"trajectories(.*).json", filename)
             if m:
-                process_trajectories(os.path.join(args.input_path, filename), args.output_path)
+                trajectory2graph(
+                    path_trajectories=os.path.join(args.input_path, filename),
+                    output_folder=args.output_path,
+                    edges_weight=args.edges_weight,
+                    prune_threshold_nodes=args.prune_threshold_nodes,
+                    prune_threshold_edges=args.prune_threshold_edges,
+                    png_visualization=args.png_visualization,
+                    interactive_visualization=args.interactive_visualization,
+                )
     else:
-        process_trajectories(args.input_path, args.output_path)
+        trajectory2graph(
+            path_trajectories=args.input_path,
+            output_folder=args.output_path,
+            edges_weight=args.edges_weight,
+            prune_threshold_nodes=args.prune_threshold_nodes,
+            prune_threshold_edges=args.prune_threshold_edges,
+            png_visualization=args.png_visualization,
+            interactive_visualization=args.interactive_visualization,
+        )
