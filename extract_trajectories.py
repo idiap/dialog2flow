@@ -19,7 +19,7 @@ import argparse
 import numpy as np
 
 from tqdm import tqdm
-from typing import List
+from typing import List, Union
 from matplotlib import pyplot as plt
 from simpleneighbors import SimpleNeighbors
 from sklearn.cluster import AgglomerativeClustering
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="Convert a collection of dialogues to discrete trajectories by clustering their utterance embeddings")
     parser.add_argument("-i", "--input-path", help="Path to the input dialogues. A folder with txt, tsv or json files", required=True)
     parser.add_argument("-m", "--model", help="Sentence-Bert model used to generate the embeddings", default="sergioburdisso/dialog2flow-joint-bert-base")
-    parser.add_argument("-t", "--threshold", type=float, help="Distance threshold or the number of cluster for the Agglomerative Clustering algorithm")
+    parser.add_argument("-t", "--threshold", nargs='+', type=float, help="Distance threshold or the number of cluster for the Agglomerative Clustering algorithm, for both or system + user")
     parser.add_argument("-o", "--output-path", help="Folder to store the inferred trajectories.json file", default="output/")
     parser.add_argument("-sd", "--show-dendrogram", action="store_true", help="Whether to show and save the Dendrogram with the hierarchy of clusters")
     parser.add_argument("-l", "--labels-enabled", action="store_true", help="Generate action labels for discovered clusters with an LLM")
@@ -188,13 +188,16 @@ def dialog2trajectories(
     input_path: str,
     output_path: str = None,
     embedding_model: str = "sergioburdisso/dialog2flow-joint-bert-base",
-    threshold: float = .6,
+    thresholds: Union[Union[float, int], List[Union[float, int]]] = .6,  # [system threshold/actions, user threshold/actions]
     labels_enabled: bool = False,
     labels_model: str = "qwen2.5:14b",
     labels_top_k: int = 5,
     dendrogram: bool = True,
     target_domains: List[str] = None
 ):
+
+    if type(thresholds) is not list:
+        thresholds = [thresholds]
 
     if not output_path:
         output_path = os.path.join(input_path, "dialog2flow")
@@ -304,7 +307,7 @@ def dialog2trajectories(
         domains[domain]["emb"][np.where(~np.any(domains[domain]["emb"], axis=1))[0], 0] = 1
 
         normalized_turn_names = {DEFAULT_USER_NAME: {}, DEFAULT_SYS_NAME: {}}
-        for speaker in normalized_turn_names:
+        for spix, speaker in enumerate(sorted(normalized_turn_names.keys())):
             logger.info(f"Clustering {speaker.upper()} utterances...")
             speaker_mask = domains[domain]["speaker"] == speaker
             linkage = "average"
@@ -316,6 +319,7 @@ def dialog2trajectories(
                 logger.warning(f"No {speaker} utterances were found.")
                 continue
 
+            threshold = thresholds[min(spix, len(thresholds) - 1)]  # system threshold, user threshold
             if threshold is None or threshold < 0:
                 logger.info("No valid threshold or number of cluster was provided. "
                             "Trying to set the number of clusters using ground truth annotation (if available)")
@@ -415,7 +419,7 @@ if __name__ == "__main__":
         input_path=args.input_path,
         output_path=args.output_path,
         embedding_model=args.model,
-        threshold=args.threshold,
+        thresholds=args.threshold,
         labels_enabled=args.labels_enabled,
         labels_model=args.labels_model,
         labels_top_k=args.labels_top_k,
