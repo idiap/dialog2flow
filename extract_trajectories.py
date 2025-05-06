@@ -18,7 +18,7 @@ import logging
 import argparse
 import numpy as np
 
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from typing import List, Union
 from tenacity import RetryError
 from matplotlib import pyplot as plt

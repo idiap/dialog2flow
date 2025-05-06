@@ -18,7 +18,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 from umap import UMAP
 from umap.plot import _get_embedding

@@ -16,7 +16,7 @@ import torch
 import argparse
 import numpy as np
 
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from collections import Counter
 from sentence_transformers import SentenceTransformer, models
 from sklearn.metrics import classification_report, ndcg_score
