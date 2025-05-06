@@ -355,7 +355,7 @@ def trajectory2graph(path_trajectories: str,
                 # (id, speaker, acts)
                 spkr_end_ix = turn.index(":")
                 spkr, dial_act = turn[:spkr_end_ix], turn[spkr_end_ix + 1:].strip().replace(":", "")
-                if re.match(r"^\w+-(\w)", dial_act):
+                if re.match(r"^[a-z]\w*-(\w)", dial_act, flags=re.IGNORECASE):
                     domain, dial_act = dial_act.split("-")
                 trajectories[dialog_id].append((f"{spkr.lower()}: {dial_act}", spkr.lower(), dial_act))
 

@@ -218,6 +218,9 @@ def dialog2trajectories(
     elif os.path.isdir(input_path):
         domain = os.path.basename(os.path.normpath(input_path))
         for filename in tqdm(os.listdir(input_path), desc="Dialogues:"):
+            if os.path.isdir(os.path.join(input_path, filename)):
+                continue
+
             dialog_id, ext = os.path.splitext(filename)
             if ext == ".json":
                 dialogue = get_json_dialog(os.path.join(input_path, filename))
