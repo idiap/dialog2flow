@@ -16,8 +16,14 @@ import logging
 import argparse
 import networkx as nx
 
-from typing import List, Dict
 from graphviz import Digraph
+from typing import List, Dict, Tuple
+
+try:
+    from util import CaselessDict
+except ModuleNotFoundError:
+    from .util import CaselessDict
+
 
 DEFAULT_SYS_NAME = "system"
 DEFAULT_USER_NAME = "user"
@@ -136,7 +142,7 @@ def create_graph(trajectories: Dict,
                  prune_threshold_edges: float = 0.2,
                  png_show_ids: bool = False,
                  png_visualization: bool = True,
-                 interactive_visualization: bool = False):
+                 interactive_visualization: bool = False) -> Tuple[nx.DiGraph, Dict[str, Dict]]:
 
     G = nx.DiGraph()
     G.add_node(DEFAULT_TOKEN_START, color="green", fr=1)
@@ -358,6 +364,9 @@ def create_graph(trajectories: Dict,
         with open(output_file, "w") as writer:
             writer.write(html_first + graph_html + html_end)
 
+    # Returning the graph and nodes info
+    return G, CaselessDict({f"{speaker[0].upper()}{ix}": info for speaker in node_info for ix, info in enumerate(node_info[speaker])})
+
 
 def trajectory2graph(path_trajectories: str,
                      output_folder: str,
@@ -367,7 +376,7 @@ def trajectory2graph(path_trajectories: str,
                      png_show_ids: bool = True,
                      png_visualization: bool = True,
                      interactive_visualization: bool = False,
-                     target_domains: List[str] = None):
+                     target_domains: List[str] = None) -> Tuple[nx.DiGraph, Dict[str, Dict]]:
 
     logger.info(f"  Reading trajectories from ({path_trajectories})...")
     with open(path_trajectories) as reader:
@@ -423,7 +432,7 @@ def trajectory2graph(path_trajectories: str,
         else:
             output_path_clusters = None
 
-        create_graph(
+        graph, nodes = create_graph(
             all_trajectories[domain],
             output_path,
             output_path_clusters,
@@ -436,6 +445,8 @@ def trajectory2graph(path_trajectories: str,
         )
 
         logger.info(f"  Finished creating the graph.")
+
+    return graph, nodes
 
 if __name__ == "__main__":
     if os.path.isdir(args.input_path):

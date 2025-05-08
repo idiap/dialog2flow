@@ -19,13 +19,15 @@ import argparse
 import numpy as np
 
 from tqdm.auto import tqdm
-from typing import List, Union
+from networkx import DiGraph
 from tenacity import RetryError
 from matplotlib import pyplot as plt
+from typing import List, Union, Dict, Tuple
 from simpleneighbors import SimpleNeighbors
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import SentenceTransformer
 from scipy.cluster.hierarchy import dendrogram, to_tree
+
 
 try:
     from util import SentenceTransformerOpenAI, SentenceTransformerDialoGPT, SentenceTransformerSbdBERT, \
@@ -444,7 +446,7 @@ def dialog2graph(
     out_png: bool =True,
     out_interactive: bool =False,
     target_domains: List[str] = None
-) -> str:
+) -> Tuple[DiGraph, Dict[str, Dict]]:
 
     path_trajectories = dialog2trajectories(
         input_path=input_path,
@@ -458,7 +460,7 @@ def dialog2graph(
         target_domains=target_domains
     )
 
-    trajectory2graph(
+    return trajectory2graph(
         path_trajectories=path_trajectories,
         output_folder=os.path.join(os.path.split(path_trajectories)[0], "graph"),
         edges_weight=edges_weight_type,

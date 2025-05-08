@@ -28,6 +28,14 @@ STR_AVERAGE_COLUMN = "AVG."
 memory = Memory('__cache__/llm_labels', verbose=0)
 
 
+class CaselessDict(dict):
+    def __setitem__(self, key, value):
+        super(CaselessDict, self).__setitem__(key.upper(), value)
+
+    def __getitem__(self, key):
+        return super(CaselessDict, self).__getitem__(key.upper())
+
+
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
 def get_openai_response(client, messages: list, model="gpt-4o", seed=42):
     if type(gpt_client) == OpenAI:
