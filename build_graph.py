@@ -77,14 +77,14 @@ def get_node_id(node):
     return node.split("_")[0].lower().replace("[", "").replace("]", "").replace(" ", "_")
 
 
-def get_node_name(node, label=False, no_cluster_ids=False):
+def get_node_name(node, label=False, no_cluster_ids=False, show_id=False):
     if label:
         if re.search(r"\d", node):
             node = node.replace("system: ", "S").replace("user: ", "U")
             m = re.match(r"([SU].+?)_(.+)", node)
             utterance = "<BR/>".join([m.group(2)[ix * NODE_UTTERANCE_LEN: (ix + 1) * NODE_UTTERANCE_LEN] for ix in range(len(m.group(2)) // NODE_UTTERANCE_LEN + 1)])
             if no_cluster_ids:
-                return f'<{utterance.capitalize()}>'
+                return f'<{utterance.capitalize()}>' if not show_id else f"<{utterance}<B>[{m.group(1)}]</B>>"
             else:
                 return f'<<B>{m.group(1)}</B><I>("{utterance}")</I>>'
         else:
@@ -134,6 +134,7 @@ def create_graph(trajectories: Dict,
                  edges_weight: str = "max-out",
                  prune_threshold_nodes: float = 0.023,
                  prune_threshold_edges: float = 0.2,
+                 png_show_ids: bool = False,
                  png_visualization: bool = True,
                  interactive_visualization: bool = False):
 
@@ -275,7 +276,7 @@ def create_graph(trajectories: Dict,
         if "speaker" in data:
             weight, speaker = data["weight"], data["speaker"]
             g.node(get_node_name(n),
-                   label=get_node_name(n, label=True, no_cluster_ids=nodes_are_labels),
+                   label=get_node_name(n, label=True, no_cluster_ids=nodes_are_labels, show_id=png_show_ids),
                    penwidth=str(1 + weight * 5),
                    fillcolor="#b3e5fc" if speaker == DEFAULT_USER_NAME else "white")
 
@@ -363,6 +364,7 @@ def trajectory2graph(path_trajectories: str,
                      edges_weight: str = "prob-out",
                      prune_threshold_nodes: float = 0.023,
                      prune_threshold_edges: float = 0.2,
+                     png_show_ids: bool = True,
                      png_visualization: bool = True,
                      interactive_visualization: bool = False,
                      target_domains: List[str] = None):
@@ -428,6 +430,7 @@ def trajectory2graph(path_trajectories: str,
             edges_weight,
             prune_threshold_nodes,
             prune_threshold_edges,
+            png_show_ids,
             png_visualization,
             interactive_visualization,
         )

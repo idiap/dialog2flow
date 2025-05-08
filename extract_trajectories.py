@@ -434,10 +434,11 @@ def dialog2graph(
     input_path: str,
     output_path: str = None,
     node_embedding_model: str = "sergioburdisso/dialog2flow-joint-bert-base",
-    node_thresholds: Union[Union[float, int], List[Union[float, int]]] = .6,  # [system threshold/actions, user threshold/actions]
+    node_thresholds: Union[Union[float, int], List[Union[float, int]]] = .55,  # [system threshold/actions, user threshold/actions]
     node_llm_labels_enabled: bool = True,
     node_llm_labels_model: str = "qwen2.5:14b",
     node_llm_labels_top_k: int = 5,
+    node_show_ids: bool = True,
     edges_weight_type: str ="prob-out",
     edges_prune_threshold: float =0.05,
     out_png: bool =True,
@@ -462,6 +463,7 @@ def dialog2graph(
         output_folder=os.path.join(os.path.split(path_trajectories)[0], "graph"),
         edges_weight=edges_weight_type,
         prune_threshold_edges=edges_prune_threshold,
+        png_show_ids=node_show_ids,
         png_visualization=out_png,
         interactive_visualization=out_interactive,
     )
