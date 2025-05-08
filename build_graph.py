@@ -70,6 +70,9 @@ def get_utterance(node):
     return m.group(1).capitalize()
 
 
+def get_speaker(node):
+    return "system" if node.lower().startswith("system") else "user"
+
 def get_node_id(node):
     return node.split("_")[0].lower().replace("[", "").replace("]", "").replace(" ", "_")
 
@@ -176,6 +179,46 @@ def create_graph(trajectories: Dict,
             if s0_speaker:
                 G.nodes[s0]["color"] = "blue" if s0_speaker == DEFAULT_USER_NAME else "red"
                 G.nodes[s0]["speaker"] = s0_speaker
+
+    # Merge nodes with the same label
+    if nodes_are_labels:
+        label2nodes = {}
+        for n in G.nodes:
+            # TODO: instead of consider nodes duplicate if have the exact same label, perhaps similarity metric can be used
+            label = f"{get_speaker(n)}-{get_node_name(n, label=True, no_cluster_ids=True)}"
+            if label not in label2nodes:
+                label2nodes[label] = []
+            label2nodes[label].append(n)
+
+        # if repeated labels
+        repeated_nodes = [nodes for nodes in label2nodes.values() if len(nodes) > 1]
+        del label2nodes
+        if repeated_nodes:
+            logger.info(f"Found {len(repeated_nodes)} unique labels with repeated nodes to marge")
+            logger.info(f"    > Number of nodes before mergin duplicates: {len(G.nodes)}")
+            for nodes in repeated_nodes:
+                node_original, node_duplicates = nodes[0], nodes[1:]
+
+                # 1) Updating the in-bound edges to link to original only
+                for s, _, data in G.in_edges(node_duplicates, data=True):
+                    if G.has_edge(s, node_original):
+                        G[s][node_original]["fr"] += data["fr"]
+                    else:
+                        G.add_edge(s, node_original, **data)
+
+                # 2) Updating the out-bound edges to link to original only
+                for _, t, data in G.out_edges(node_duplicates, data=True):
+                    if G.has_edge(node_original, t):
+                        G[node_original][t]["fr"] += data["fr"]
+                    else:
+                        G.add_edge(node_original, t, **data)
+
+                # 3) Updating original node frequencies
+                for n in node_duplicates:
+                    G.nodes[node_original]["fr"] += G.nodes[n]["fr"]
+
+                G.remove_nodes_from(node_duplicates)
+    logger.info(f"    > Number of nodes after mergin duplicates: {len(G.nodes)}")
 
     # Normalize nodes
     max_fr = max([fr for _, fr in G.nodes(data="fr")])

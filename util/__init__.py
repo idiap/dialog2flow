@@ -78,6 +78,13 @@ For the following utterances:
 Canonical form is: "request entertainment place and inform location"
 
 For the following utterances:
+    1. My name is Michael.
+    2. I'm John
+    3. mmmh sure, it's Dr. Smith
+    4. Angela
+Canonical form is: "inform name"
+
+For the following utterances:
     1. Okay so the phone number is a 1223217297
     2. Sure, my phone number is four four five five
     3. 2 3 4 5 6 is her phone number
@@ -87,6 +94,17 @@ For the following utterances:
     1. 8 4 0
     2. yes five five three
 Canonical form is: "inform number"
+
+For the following utterances:
+    1. Is there anything else that I can do for you?
+    2. anything else I can help you with?
+Canonical form is: "ask anything else"
+
+For the following utterances:
+    1. Thank you and goodbye
+    2. Yes. Thank you for your help. Have a nice day
+    3. Thanks goodbye
+Canonical form is: "good bye"
 
 For the following utterances:
     1. I'm just trying to check up on the status of payment. Um, I had requested to reopen this claim. It was approved. Um, I, it was assigned an adjuster and then reassigned an adjuster and then I sent emails to the adjusters, their supervisors and the directors and I still have not been able to get any kind of, uh, status update.
@@ -111,7 +129,7 @@ Canonical form is: "problem statement"
         m = re.match(r'.+?:\s*"(.+)', response)
         if m:
             response = m.group(1)
-    return response.strip('"').title()
+    return response.strip('"').capitalize()
 
 
 def slugify(text):
